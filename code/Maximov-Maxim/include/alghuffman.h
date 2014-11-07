@@ -4,6 +4,7 @@
 #define CODE_MAXIMOV_MAXIM_INCLUDE_ALGHUFFMAN_H_
 #include <string>
 
+#pragma pack(push, 1)
 class Node {
  public:
     Node *left, *right;
@@ -13,6 +14,7 @@ class Node {
     Node();
     Node(Node *_left, Node *_right);
 };
+#pragma pack(pop)
 
 struct MyCompare {
     bool operator()(const Node* l, const Node* r) {  // need more const??

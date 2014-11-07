@@ -24,7 +24,10 @@ Node::Node()
       c('\0') {
 }
 
-void BuildTable(Node *root, map<char, vector<bool>> *table,
+void BuildTable(Node *root, map<char, vector<bool> > *table,
+    vector<bool> *code);
+Node* CopyTree(Node* tempRoot);
+void BuildTable(Node *root, map<char, vector<bool> > *table,
     vector<bool> *code) {
     if (root->left != NULL) {
         code->push_back(0);
@@ -103,7 +106,7 @@ std::string HuffmanAlgorithm::Code(std::string source) {
 
     // Build table with pairs "character - code"
 
-    map<char, vector<bool>> table;
+    map<char, vector<bool> > table;
     vector<bool> code;
 
     BuildTable(root, &table, &code);

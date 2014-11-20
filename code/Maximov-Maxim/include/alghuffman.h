@@ -7,18 +7,21 @@
 #pragma pack(push, 1)
 class Node {
  public:
-    Node *left, *right;
-    int value;
-    char c;
+    Node *_left, *_right;
+    int _value;
+    char _c;
 
     Node();
-    Node(Node *_left, Node *_right);
+    Node(Node *left, Node *right);
+    ~Node();
+    explicit Node(Node const& copy);
+    Node& operator=(const Node& a);
 };
 #pragma pack(pop)
 
 struct MyCompare {
-    bool operator()(const Node* l, const Node* r) {  // need more const??
-       return l->value < r->value;
+    bool operator()(const Node* l, const Node* r) {
+       return l->_value < r->_value;
     }
 };
 
@@ -28,9 +31,9 @@ class HuffmanAlgorithm {
     ~HuffmanAlgorithm();
     explicit HuffmanAlgorithm(HuffmanAlgorithm const& copy);
     HuffmanAlgorithm& operator=(const HuffmanAlgorithm& a);
-    std::string Code(std::string source);
-    std::string Decode(std::string source);
-    Node *root;
+    std::string code(std::string source);
+    std::string decode(std::string source);
+    Node *_root;
 };
 
 #endif  // CODE_MAXIMOV_MAXIM_INCLUDE_ALGHUFFMAN_H_

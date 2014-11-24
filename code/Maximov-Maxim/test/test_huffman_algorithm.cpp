@@ -65,3 +65,17 @@ TEST(HuffmanAlgorithmTest, Try_Copy_Object) {
     newhuff = oldhuff;
     EXPECT_EQ("anything", newhuff.decode(temp));
 }
+
+TEST(HuffmanAlgorithmTest, Try_Copy_Node) {
+    Node oldnode, newnode;
+    oldnode._value = 42;
+    newnode = oldnode;
+    EXPECT_EQ(42, newnode._value);
+}
+
+TEST(HuffmanAlgorithmTest, Try_Construct_Node_With_Copy) {
+    Node oldnode;
+    oldnode._value = 42;
+    Node newnode(oldnode);
+    EXPECT_EQ(42, newnode._value);
+}

@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 #include <string>
+#include <string.h>
+
 
 #include "include/tconv.h"
 #include "include/tconvApp.h"

@@ -21,7 +21,7 @@ class AppTest : public ::testing::Test {
     }
 
     void Assert(std::string expected) {
-        EXPECT_TRUE(RE::PartialMatch(info, RE(expected)));
+        EXPECT_TRUE(RE::PartialMatch(output_, RE(expected)));
     }
 
     TConvApplication app_;

@@ -119,7 +119,7 @@ TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Fahrenheit) {
 
     Act(argc, argv);
 
-    Assert("Result = 122.0");
+    Assert("Result = 121.999999");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Newton) {

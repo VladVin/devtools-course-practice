@@ -38,7 +38,7 @@ class AppTest : public ::testing::Test {
         EXPECT_TRUE(RE::PartialMatch(output_, RE(expected)));
     }
 
-    CalculatorApplication app_;
+    TConvApplication app_;
     string output_;
     vector<string> args;
 };

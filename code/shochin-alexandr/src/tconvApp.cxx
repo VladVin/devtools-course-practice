@@ -10,13 +10,12 @@
 double parseDouble(const char* arg);
 Unit parseUnit(const char* arg);
 
-TConvApplication::TConvApplication() {}
+TConvApplication::TConvApplication() : message_("") {}
 
 void TConvApplication::help(const char* appName) {
-    printf("This is a temperature convertor application.\n\n");
-    printf("Please provide arguments in the following format:\n\n");
-    printf("$ %s <argumentValue> <argumentFrom> <argumentIn>\n\n", appName);
-    printf("Where both arguments are double numbers\n\n");
+    message_ += std::string("This is a temperature convertor application.\n\n")
+             + "Please provide arguments in the following format:\n\n"
+             + " $ " + appName + " <argValue> <argFrom> <argIn>\n\n";
 }
 
 Unit parseUnit(const char* arg) {
@@ -30,7 +29,7 @@ Unit parseUnit(const char* arg) {
      } else if (strcmp(arg, "Newton") == 0) {
        unit = Newton;
      } else {
-       throw "ERROR!";
+       throw std::string("ERROR!");
      }
      return unit;
 }
@@ -40,7 +39,7 @@ double parseDouble(const char* arg) {
     double value = strtod(arg, &str);
     if (!str[0]) {
     } else {
-      throw "ERROR";
+      throw std::string("ERROR!");
     }
     return value;
 }
@@ -50,7 +49,7 @@ int TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
         help(argv[0]);
         return 0;
     } else if (argc != 4) {
-        printf("ERROR: Should be 3 arguments.\n\n");
+        message_ = "ERROR: Should be 3 arguments.\n\n";
         help(argv[0]);
         return 0;
     }
@@ -60,7 +59,7 @@ int TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
          exp->argIn = static_cast<Unit>(parseUnit(argv[3]));
     }
     catch(...) {
-         printf("ERROR!");
+         message_ = "ERROR!";
          return 0;
     }
     return 1;
@@ -68,8 +67,9 @@ int TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
 
 std::string TConvApplication::operator()(int argc, const char** argv) {
     Expression exp;
+    std::ostringstream stream;
     if (parseArg(argc, argv, &exp) != 1) {
-        return "ERROR!";
+        return message_;
     }
     TemperatureConvertor temp;
     Temperature from, t;
@@ -77,10 +77,12 @@ std::string TConvApplication::operator()(int argc, const char** argv) {
     from.unit = exp.argFrom;
     try {
         t.value = temp.Convert(from, exp.argIn);
-        printf("Result = %f", t.value);
-        return "";
+        stream << "Result = ";
+        stream << t.value;
     }
     catch(...) {
-        return "ERROR!";
+        stream << "ERROR!";
     }
+    message_ = stream.str();
+    return message_;
 }

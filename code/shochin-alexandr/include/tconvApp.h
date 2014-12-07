@@ -21,6 +21,7 @@ class TConvApplication {
     TConvApplication();
     std::string operator()(int argc, const char** argv);
  private:
+    std::string message_;
     void help(const char* appName);
     int parseArg(int argc, const char** argv, Expression* exp);
 };

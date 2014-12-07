@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
-
+#include <string>
 
 #include "include/tconv.h"
 #include "include/tconvApp.h"

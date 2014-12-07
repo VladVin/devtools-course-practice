@@ -48,7 +48,7 @@ double parseDouble(const char* arg) {
 bool TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
     if (argc == 1) {
         help(argv[0]);
-        return 0;
+        return false;
     } else if (argc != 4) {
         message_ = "ERROR: Should be 3 arguments.\n\n";
         help(argv[0]);

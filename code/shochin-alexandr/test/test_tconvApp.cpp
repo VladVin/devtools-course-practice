@@ -150,5 +150,5 @@ TEST_F(AppTest, Convert_Correct_Value_Newton_to_Celsius) {
 
     Act(args);
 
-    Assert("Result = 151.520000");
+    Assert("Result = 151.515152");
 }

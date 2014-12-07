@@ -77,7 +77,7 @@ std::string TConvApplication::operator()(int argc, const char** argv) {
     from.unit = exp.argFrom;
     try {
         t.value = temp.Convert(from, exp.argIn);
-        printf("Result = %.2f", t.value);
+        printf("Result = %f", t.value);
         return "";
     }
     catch(...) {

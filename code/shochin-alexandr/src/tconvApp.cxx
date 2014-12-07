@@ -1,7 +1,6 @@
 // Copyright 2014 Shochin Alexandr
 
 #include <stdio.h>
-#include <string>
 #include <string.h>
 
 

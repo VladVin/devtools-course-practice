@@ -9,18 +9,23 @@
 
 using ::testing::internal::RE;
 
-class AppTest: public ::testing::Test {
+class AppTest : public ::testing::Test {
  protected:
-    TConvApplication application;
-    std::string info;
+    virtual void SetUp() {
+        args.clear();
+    }
+    // virtual void TearDown() {}
 
     void Act(int argc, const char* argv[]) {
-        info = application(argc, argv);
+        output_ = app_(argc, argv);
     }
 
-    void Assert(std::string expect) {
-        EXPECT_TRUE(RE::PartialMatch(info, RE(expect)));
+    void Assert(std::string expected) {
+        EXPECT_TRUE(RE::PartialMatch(info, RE(expected)));
     }
+
+    TConvApplication app_;
+    std::string output_;
 };
 
 TEST_F(AppTest, Print_Help_Without_Arguments) {

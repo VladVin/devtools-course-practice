@@ -46,7 +46,7 @@ class AppTest : public ::testing::Test {
 TEST_F(AppTest, Do_Print_Help_Without_Arguments) {
     Act(args);
 
-    Assert("This is a temperature convertor application\\..*");
+    Assert("This is a temperature convertor application");
 }
 
 TEST_F(AppTest, Is_Checking_Number_Of_Arguments) {
@@ -94,7 +94,7 @@ TEST_F(AppTest, Detect_Wrong_oldUnit_Format) {
 
     Act(args);
 
-    Assert("ERROR!\\..*");
+    Assert("ERROR!");
 }
 
 TEST_F(AppTest, Detect_Wrong_newUnit_Format) {
@@ -102,7 +102,7 @@ TEST_F(AppTest, Detect_Wrong_newUnit_Format) {
 
     Act(args);
 
-    Assert("ERROR!\\..*");
+    Assert("ERROR!");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Kelvin) {
@@ -110,7 +110,7 @@ TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Kelvin) {
 
     Act(args);
 
-    Assert("Result = 323.15");
+    Assert("Result = 323.150000");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Fahrenheit) {
@@ -118,7 +118,7 @@ TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Fahrenheit) {
 
     Act(args);
 
-    Assert("Result = 122.00");
+    Assert("Result = 122.000000");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Newton) {
@@ -126,7 +126,7 @@ TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Newton) {
 
     Act(args);
 
-    Assert("Result = 16.50");
+    Assert("Result = 16.500000");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Kelvin_to_Celsius) {
@@ -134,7 +134,7 @@ TEST_F(AppTest, Convert_Correct_Value_Kelvin_to_Celsius) {
 
     Act(args);
 
-    Assert("Result = -223.15");
+    Assert("Result = -223.150000");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Fahrenheit_to_Celsius) {
@@ -142,7 +142,7 @@ TEST_F(AppTest, Convert_Correct_Value_Fahrenheit_to_Celsius) {
 
     Act(args);
 
-    Assert("Result = 10.00");
+    Assert("Result = 10.000000");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Newton_to_Celsius) {
@@ -150,5 +150,5 @@ TEST_F(AppTest, Convert_Correct_Value_Newton_to_Celsius) {
 
     Act(args);
 
-    Assert("Result = 151.52");
+    Assert("Result = 151.520000");
 }

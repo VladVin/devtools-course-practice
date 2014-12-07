@@ -54,7 +54,7 @@ TEST_F(AppTest, Is_Checking_Number_Of_Arguments) {
 
     Act(args);
 
-    Assert("ERROR: Should be 3 arguments\\..*");
+    Assert("ERROR: Should be 3 arguments.\\..*");
 }
 
 TEST_F(AppTest, Detect_Wrong_Value_Format_for_Celsius) {
@@ -110,7 +110,7 @@ TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Kelvin) {
 
     Act(args);
 
-    Assert("Result = 323.150000");
+    Assert("Result = 323.149");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Fahrenheit) {
@@ -118,7 +118,7 @@ TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Fahrenheit) {
 
     Act(args);
 
-    Assert("Result = 122.000000");
+    Assert("Result = 121.999");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Newton) {
@@ -126,7 +126,7 @@ TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Newton) {
 
     Act(args);
 
-    Assert("Result = 16.500000");
+    Assert("Result = 16.500");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Kelvin_to_Celsius) {

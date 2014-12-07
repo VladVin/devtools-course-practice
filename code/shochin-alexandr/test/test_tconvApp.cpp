@@ -46,7 +46,7 @@ class AppTest : public ::testing::Test {
 TEST_F(AppTest, Do_Print_Help_Without_Arguments) {
     Act(args);
 
-    Assert("This is a simple calculator application\\..*");
+    Assert("This is a temperature convertor application\\..*");
 }
 
 TEST_F(AppTest, Is_Checking_Number_Of_Arguments) {

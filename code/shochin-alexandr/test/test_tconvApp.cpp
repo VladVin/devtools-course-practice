@@ -89,7 +89,7 @@ TEST_F(AppTest, Detect_Wrong_oldUnit_Format) {
 
     Act(argc, argv);
 
-    Assert("ERROR!\\..*");
+    Assert("ERROR!");
 }
 
 TEST_F(AppTest, Detect_Wrong_newUnit_Format) {
@@ -99,7 +99,7 @@ TEST_F(AppTest, Detect_Wrong_newUnit_Format) {
 
     Act(argc, argv);
 
-    Assert("ERROR!\\..*");
+    Assert("ERROR!");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Kelvin) {
@@ -129,7 +129,7 @@ TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Newton) {
 
     Act(argc, argv);
 
-    Assert("Result = 16.50");
+    Assert("Result = 16.500000000000000");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Kelvin_to_Celsius) {

@@ -54,7 +54,7 @@ TEST_F(AppTest, Is_Checking_Number_Of_Arguments) {
 
     Act(args);
 
-    Assert("Should be 3 arguments\\..*");
+    Assert("ERROR: Should be 3 arguments\\..*");
 }
 
 TEST_F(AppTest, Detect_Wrong_Value_Format_for_Celsius) {

@@ -50,7 +50,7 @@ int TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
         help(argv[0]);
         return 0;
     } else if (argc != 4) {
-        printf("Should be 3 arguments.\n\n");
+        printf("ERROR: Should be 3 arguments.\n\n");
         help(argv[0]);
         return 0;
     }

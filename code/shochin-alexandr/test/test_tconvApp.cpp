@@ -2,16 +2,35 @@
 
 #include <gtest/gtest.h>
 
-#include <limits.h>
 #include <string>
+#include <vector>
+#include <algorithm>
+#include <functional>
+#include <iterator>
 
 #include "include/tconvApp.h"
 
 using ::testing::internal::RE;
+using std::vector;
+using std::string;
 
 class AppTest : public ::testing::Test {
  protected:
-    void Act(int argc, const char* argv[]) {
+    virtual void SetUp() {
+        args.clear();
+    }
+    // virtual void TearDown() {}
+
+    void Act(vector<string> args_) {
+        vector<const char*> starts;
+        starts.push_back("appName");
+
+        for (size_t i = 0; i < args_.size(); ++i) {
+            starts.push_back(args_[i].c_str());
+        }
+        const char** argv = &starts.front();
+        int argc = static_cast<int>(args_.size()) + 1;
+
         output_ = app_(argc, argv);
     }
 
@@ -19,145 +38,117 @@ class AppTest : public ::testing::Test {
         EXPECT_TRUE(RE::PartialMatch(output_, RE(expected)));
     }
 
-    TConvApplication app_;
-    std::string output_;
+    CalculatorApplication app_;
+    string output_;
+    vector<string> args;
 };
 
-TEST_F(AppTest, Print_Help_Without_Arguments) {
-    // Arrange
-    int argc = 1;
-    const char* argv[] = {"appName"};
+TEST_F(AppTest, Do_Print_Help_Without_Arguments) {
+    Act(args);
 
-    Act(argc, argv);
-
-    Assert("This is a temperature convertor application\\..*");
+    Assert("This is a simple calculator application\\..*");
 }
 
-TEST_F(AppTest, Check_Number_Of_Arguments) {
-    // Arrange
-    int argc = 3;
-    const char* argv[] = {"appName", "20", "Celsius"};
+TEST_F(AppTest, Is_Checking_Number_Of_Arguments) {
+    args = {"appName", "20", "Celsius"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("ERROR: Should be 3 arguments\\..*");
 }
 
 TEST_F(AppTest, Detect_Wrong_Value_Format_for_Celsius) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "-300", "Celsius", "Newton"};
+    args = {"appName", "-300", "Celsius", "Newton"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("ERROR!");
 }
 
 TEST_F(AppTest, Detect_Wrong_Value_Format_for_Kelvin) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "-3", "Kelvin", "Newton"};
+    args = {"appName", "-3", "Kelvin", "Newton"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("ERROR!");
 }
 
 TEST_F(AppTest, Detect_Wrong_Value_Format_for_Newton) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "-100", "Newton", "Kelvin"};
+    args = {"appName", "-100", "Newton", "Kelvin"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("ERROR!");
 }
 
 TEST_F(AppTest, Detect_Wrong_Value_Format_for_Fahrenheit) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "-500", "Fahrenheit", "Newton"};
+    args = {"appName", "-500", "Fahrenheit", "Newton"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("ERROR!");
 }
-TEST_F(AppTest, Detect_Wrong_oldUnit_Format) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "50", "Unit", "Kelvin"};
 
-    Act(argc, argv);
+TEST_F(AppTest, Detect_Wrong_oldUnit_Format) {
+    args = {"appName", "50", "Unit", "Kelvin"};
+
+    Act(args);
 
     Assert("ERROR!\\..*");
 }
 
 TEST_F(AppTest, Detect_Wrong_newUnit_Format) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "50", "Celsius", "Unit"};
+    args = {"appName", "50", "Celsius", "Unit"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("ERROR!\\..*");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Kelvin) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "50", "Celsius", "Kelvin"};
+    args = {"appName", "50", "Celsius", "Kelvin"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("Result = 323.15");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Fahrenheit) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "50", "Celsius", "Fahrenheit"};
+    args = {"appName", "50", "Celsius", "Fahrenheit"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("Result = 122.00");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Newton) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "50", "Celsius", "Newton"};
+    args = {"appName", "50", "Celsius", "Newton"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("Result = 16.50");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Kelvin_to_Celsius) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "50", "Kelvin", "Celsius"};
+    args = {"appName", "50", "Kelvin", "Celsius"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("Result = -223.15");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Fahrenheit_to_Celsius) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "50", "Fahrenheit", "Celsius"};
+    args = {"appName", "50", "Fahrenheit", "Celsius"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("Result = 10.00");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Newton_to_Celsius) {
-    // Arrange
-    int argc = 4;
-    const char* argv[] = {"appName", "50", "Newton", "Celsius"};
+    args = {"appName", "50", "Newton", "Celsius"};
 
-    Act(argc, argv);
+    Act(args);
 
     Assert("Result = 151.52");
 }

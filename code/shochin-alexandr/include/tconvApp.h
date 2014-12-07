@@ -23,7 +23,7 @@ class TConvApplication {
  private:
     std::string message_;
     void help(const char* appName);
-    int parseArg(int argc, const char** argv, Expression* exp);
+    bool parseArg(int argc, const char** argv, Expression* exp);
 };
 
 #endif  // CODE_SHOCHIN_ALEXANDR_INCLUDE_TCONVAPP_H_

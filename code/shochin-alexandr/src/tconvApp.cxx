@@ -45,14 +45,14 @@ double parseDouble(const char* arg) {
     return value;
 }
 
-int TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
+bool TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
     if (argc == 1) {
         help(argv[0]);
         return 0;
     } else if (argc != 4) {
         message_ = "ERROR: Should be 3 arguments.\n\n";
         help(argv[0]);
-        return 0;
+        return false;
     }
     try {
          exp->argValue = static_cast<double>(parseDouble(argv[1]));
@@ -61,9 +61,9 @@ int TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
     }
     catch(...) {
          message_ = "ERROR!";
-         return 0;
+         return false;
     }
-    return 1;
+    return true;
 }
 
 std::string TConvApplication::operator()(int argc, const char** argv) {

@@ -139,15 +139,15 @@ TEST_F(AppTest, Convert_Correct_Value_Fahrenheit_to_Celsius) {
 
     Act(argc, argv);
 
-    Assert("Result = 10.000000");
+    Assert("Result = 10");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Newton_to_Celsius) {
     // Arrange
     int argc = 4;
-    const char* argv[] = {"appName", "50", "Newton", "Celsius"};
+    const char* argv[] = {"appName", "100", "Newton", "Celsius"};
 
     Act(argc, argv);
 
-    Assert("Result = 151.515152");
+    Assert("Result = 303.03");
 }

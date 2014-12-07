@@ -13,7 +13,7 @@ Unit parseUnit(const char* arg);
 TConvApplication::TConvApplication() {}
 
 void TConvApplication::help(const char* appName) {
-    printf("\nThis is a temperature convertor application.\n\n");
+    printf("This is a temperature convertor application.\n\n");
     printf("Please provide arguments in the following format:\n\n");
     printf("$ %s <argumentValue> <argumentFrom> <argumentIn>\n\n", appName);
     printf("Where both arguments are double numbers\n\n");
@@ -50,7 +50,7 @@ int TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
         help(argv[0]);
         return 0;
     } else if (argc != 4) {
-        printf("\nERROR: Should be 3 arguments.\n\n");
+        printf("Should be 3 arguments.\n\n");
         help(argv[0]);
         return 0;
     }

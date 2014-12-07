@@ -46,7 +46,7 @@ class AppTest : public ::testing::Test {
 TEST_F(AppTest, Do_Print_Help_Without_Arguments) {
     Act(args);
 
-    Assert("This is a temperature convertor application.\\..*");
+    Assert("This is a temperature convertor application\\..*");
 }
 
 TEST_F(AppTest, Is_Checking_Number_Of_Arguments) {
@@ -54,7 +54,7 @@ TEST_F(AppTest, Is_Checking_Number_Of_Arguments) {
 
     Act(args);
 
-    Assert("ERROR: Should be 3 arguments.\\..*");
+    Assert("Should be 3 arguments\\..*");
 }
 
 TEST_F(AppTest, Detect_Wrong_Value_Format_for_Celsius) {

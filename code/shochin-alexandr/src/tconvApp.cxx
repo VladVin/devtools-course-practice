@@ -30,7 +30,7 @@ Unit parseUnit(const char* arg) {
      } else if (strcmp(arg, "Newton") == 0) {
        unit = Newton;
      } else {
-       throw "\nERROR!";
+       throw "ERROR!";
      }
      return unit;
 }
@@ -40,7 +40,7 @@ double parseDouble(const char* arg) {
     double value = strtod(arg, &str);
     if (!str[0]) {
     } else {
-      throw "\nERROR";
+      throw "ERROR";
     }
     return value;
 }
@@ -60,7 +60,7 @@ int TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
          exp->argIn = static_cast<Unit>(parseUnit(argv[3]));
     }
     catch(...) {
-         printf("\nERROR!");
+         printf("ERROR!");
          return 0;
     }
     return 1;
@@ -69,7 +69,7 @@ int TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
 std::string TConvApplication::operator()(int argc, const char** argv) {
     Expression exp;
     if (parseArg(argc, argv, &exp) != 1) {
-        return "\nERROR!";
+        return "ERROR!";
     }
     TemperatureConvertor temp;
     Temperature from, t;
@@ -77,10 +77,10 @@ std::string TConvApplication::operator()(int argc, const char** argv) {
     from.unit = exp.argFrom;
     try {
         t.value = temp.Convert(from, exp.argIn);
-        printf("\nResult = %.2f", t.value);
+        printf("Result = %.2f", t.value);
         return "";
     }
     catch(...) {
-        return "\nERROR!";
+        return "ERROR!";
     }
 }

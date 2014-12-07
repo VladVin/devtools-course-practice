@@ -11,11 +11,6 @@ using ::testing::internal::RE;
 
 class AppTest : public ::testing::Test {
  protected:
-    virtual void SetUp() {
-        args.clear();
-    }
-    // virtual void TearDown() {}
-
     void Act(int argc, const char* argv[]) {
         output_ = app_(argc, argv);
     }

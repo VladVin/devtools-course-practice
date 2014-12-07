@@ -7,6 +7,9 @@
 #include "include/tconv.h"
 #include "include/tconvApp.h"
 
+double parseDouble(const char* arg);
+Unit parseUnit(const char* arg);
+
 TConvApplication::TConvApplication() {}
 
 void TConvApplication::help(const char* appName) {

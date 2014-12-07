@@ -38,5 +38,5 @@ add_test(
     COMMAND ${appname} 50 Newton Celsius
 )
 set_tests_properties (Convert_Correct_Value_Newton_to_Celsius
-  PROPERTIES PASS_REGULAR_EXPRESSION "Result = 151.52"
+  PROPERTIES PASS_REGULAR_EXPRESSION "Result = 151.515152"
 )

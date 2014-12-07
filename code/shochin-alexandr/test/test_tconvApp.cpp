@@ -102,6 +102,16 @@ TEST_F(AppTest, Detect_Wrong_newUnit_Format) {
     Assert("ERROR!");
 }
 
+TEST_F(AppTest, Detect_Wrong_Number_Format) {
+    // Arrange
+    int argc = 4;
+    const char* argv[] = {"appName", "pi", "Celsius", "Unit"};
+
+    Act(argc, argv);
+
+    Assert("ERROR!");
+}
+
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Kelvin) {
     // Arrange
     int argc = 4;

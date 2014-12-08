@@ -45,7 +45,7 @@ double parseDouble(const char* arg) {
     return value;
 }
 
-bool TConvApplication::Check(int argc, const char** argv, Expression* exp) {
+bool TConvApplication::Check(int argc, const char** argv) {
     if (argc == 1) {
         help(argv[0]);
         return false;
@@ -60,7 +60,7 @@ bool TConvApplication::Check(int argc, const char** argv, Expression* exp) {
 std::string TConvApplication::operator()(int argc, const char** argv) {
     Expression exp;
     std::ostringstream stream;
-    if (Check(argc, argv, &exp) != 1) {
+    if (Check(argc, argv) != 1) {
         return message_;
     }
     try {

@@ -45,7 +45,7 @@ double parseDouble(const char* arg) {
     return value;
 }
 
-bool TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
+bool TConvApplication::Check(int argc, const char** argv, Expression* exp) {
     if (argc == 1) {
         help(argv[0]);
         return false;
@@ -54,23 +54,22 @@ bool TConvApplication::parseArg(int argc, const char** argv, Expression* exp) {
         help(argv[0]);
         return false;
     }
-    try {
-         exp->argValue = static_cast<double>(parseDouble(argv[1]));
-         exp->argFrom = static_cast<Unit>(parseUnit(argv[2]));
-         exp->argIn = static_cast<Unit>(parseUnit(argv[3]));
-    }
-    catch(...) {
-         message_ = "ERROR!";
-         return false;
-    }
     return true;
 }
 
 std::string TConvApplication::operator()(int argc, const char** argv) {
     Expression exp;
     std::ostringstream stream;
-    if (parseArg(argc, argv, &exp) != 1) {
+    if (Check(argc, argv, &exp) != 1) {
         return message_;
+    }
+    try {
+         exp.argValue = static_cast<double>(parseDouble(argv[1]));
+         exp.argFrom = static_cast<Unit>(parseUnit(argv[2]));
+         exp.argIn = static_cast<Unit>(parseUnit(argv[3]));
+    }
+    catch(...) {
+         return message_ = "ERROR!";
     }
     TemperatureConvertor temp;
     Temperature from, t;

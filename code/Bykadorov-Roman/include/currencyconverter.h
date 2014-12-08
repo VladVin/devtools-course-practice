@@ -5,8 +5,6 @@
 
 class CurrencyConverter {
  public:
-    CurrencyConverter();
-    ~CurrencyConverter();
     enum Currency {
         USD = 1,
         EUR = 2,
@@ -18,6 +16,6 @@ class CurrencyConverter {
         // Норвежская крона
         NOK = 6
     };
-    double convert(Currency from, Currency to, double value);
+    static double convert(Currency from, Currency to, double value);
 };
 #endif  // CODE_BYKADOROV_ROMAN_INCLUDE_CURRENCYCONVERTER_H_

@@ -5,11 +5,11 @@
 
 class CurrencyConverter {
  public:
-    static constexpr double eurForRub = 65.72;
-    static constexpr double usdForRub = 53.11;
-    static constexpr double gbpForRub = 83.14;
-    static constexpr double jpyForRub = 0.44;
-    static constexpr double nokForRub = 7.5;
+    static const double eurForRub = 65.72;
+    static const double usdForRub = 53.11;
+    static const double gbpForRub = 83.14;
+    static const double jpyForRub = 0.44;
+    static const double nokForRub = 7.5;
 
     enum Currency {
         USD = 1,

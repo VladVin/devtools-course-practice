@@ -20,25 +20,11 @@ void ConverterApplication::help(const char* appname) {
              + "<value> is double number.\n";
 }
 
-int64_t parseInteger(const char* arg);
-int64_t parseInteger(const char* arg) {
-    char* end;
-    int64_t value = strtol(arg, &end, 10);
-
-    if (!end[0]) {
-    } else {
-        throw "Wrong value format";
-    }
-    return value;
-}
-
-double parseDouble(const char* arg);
-double parseDouble(const char* arg) {
+double parse(const char* arg);
+double parse(const char* arg) {
     char* end;
     double value = strtod(arg, &end);
-
-    if (!end[0]) {
-    } else {
+    if (end[0]) {
         throw "Wrong value format";
     }
     return value;
@@ -56,15 +42,15 @@ bool ConverterApplication::parseArguments(int argc, const char** argv,
     }
 
     try {
-        expression->from = static_cast<int>(parseInteger(argv[1]));
-        expression->to = static_cast<int>(parseInteger(argv[2]));
+        expression->from = static_cast<int>(parse(argv[1]));
+        expression->to = static_cast<int>(parse(argv[2]));
     }
     catch(...) {
         message_ = "Wrong currency format!\n";
         return false;
     }
     try {
-    expression->value = static_cast<double>(parseDouble(argv[3]));
+    expression->value = static_cast<double>(parse(argv[3]));
     }
     catch(...) {
         message_ = "Wrong value format!\n";

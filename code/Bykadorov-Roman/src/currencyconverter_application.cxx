@@ -25,10 +25,10 @@ int64_t parseInteger(const char* arg) {
     char* end;
     int64_t value = strtol(arg, &end, 10);
 
-    if (end[0]) {
-        throw "Wrong currency format";
+    if (!end[0]) {
+    } else {
+        throw "Wrong value format";
     }
-
     return value;
 }
 
@@ -37,10 +37,10 @@ double parseDouble(const char* arg) {
     char* end;
     double value = strtod(arg, &end);
 
-    if (end[0]) {
+    if (!end[0]) {
+    } else {
         throw "Wrong value format";
     }
-
     return value;
 }
 

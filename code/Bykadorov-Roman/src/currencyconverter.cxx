@@ -5,11 +5,6 @@
 #include <float.h>
 #include "string"
 
-static const double eurForRub = 53.5948527;
-static const double usdForRub = 42.2600685;
-static const double gbpForRub = 70.8657;
-static const double jpyForRub = 0.38;
-static const double nokForRub = 6.42;
 
 double CurrencyConverter::convert(Currency from, Currency to, double value) {
 double fromToRub = 0;

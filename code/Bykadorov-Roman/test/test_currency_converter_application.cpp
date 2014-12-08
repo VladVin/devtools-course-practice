@@ -9,6 +9,7 @@
 #include <iterator>
 
 #include "include/currencyconverter_application.h"
+#include "include/currencyconverter.h"
 
 using ::testing::internal::RE;
 using std::vector;
@@ -80,8 +81,11 @@ TEST_F(AppTest, Can_Convert_From_One_Currency_To_Same_Currency) {
     Assert("Result = 2");
 }
 
-TEST_F(AppTest, Can_Convert_From_One_Currency_To_Other_Currency) {
-    args = {"3", "1", "42.2600685"};
+TEST_F(AppTest, Can_Convert_From_One_Currency_To_USD) {
+    std::ostringstream usdStream;
+    usdStream << CurrencyConverter::usdForRub;
+    std::string usd = usdStream.str();
+    args = {"3", "1", usd};
 
     Act(args);
 
@@ -89,10 +93,14 @@ TEST_F(AppTest, Can_Convert_From_One_Currency_To_Other_Currency) {
 }
 
 TEST_F(AppTest, Can_Convert_Large_Negative_Values) {
+    std::ostringstream usdToEurStream;
+    usdToEurStream << "Result = " <<
+        -300000*CurrencyConverter::usdForRub/CurrencyConverter::eurForRub;
+    std::string usdToEur = usdToEurStream.str();
     args = {"1", "2", "-300000"};
 
     Act(args);
 
-    Assert("Result = -236553");
+    Assert(usdToEur);
 }
 

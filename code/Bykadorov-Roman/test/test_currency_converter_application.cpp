@@ -83,7 +83,7 @@ TEST_F(AppTest, Can_Convert_From_One_Currency_To_Same_Currency) {
 
 TEST_F(AppTest, Can_Convert_From_One_Currency_To_USD) {
     std::ostringstream usdStream;
-    usdStream << CurrencyConverter::usdForRub;
+    usdStream << usdForRub;
     std::string usd = usdStream.str();
     args = {"3", "1", usd};
 
@@ -95,7 +95,7 @@ TEST_F(AppTest, Can_Convert_From_One_Currency_To_USD) {
 TEST_F(AppTest, Can_Convert_Large_Negative_Values) {
     std::ostringstream usdToEurStream;
     usdToEurStream << "Result = " <<
-        -300000*CurrencyConverter::usdForRub/CurrencyConverter::eurForRub;
+        -300000*usdForRub/eurForRub;
     std::string usdToEur = usdToEurStream.str();
     args = {"1", "2", "-300000"};
 

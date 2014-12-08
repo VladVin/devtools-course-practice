@@ -4,12 +4,6 @@
 
 #include <float.h>
 #include "string"
-const double CurrencyConverter::eurForRub;
-const double CurrencyConverter::usdForRub;
-const double CurrencyConverter::gbpForRub;
-const double CurrencyConverter::jpyForRub;
-const double CurrencyConverter::nokForRub;
-
 
 double CurrencyConverter::convert(Currency from, Currency to, double value) {
 double fromToRub = 0;

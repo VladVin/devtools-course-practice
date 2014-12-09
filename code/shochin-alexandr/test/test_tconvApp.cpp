@@ -50,7 +50,7 @@ TEST_F(AppTest, Detect_Wrong_Value_Format_for_Celsius) {
 
     Act(argc, argv);
 
-    Assert("ERROR!");
+    Assert("Incorrect value for the first argument!");
 }
 
 TEST_F(AppTest, Detect_Wrong_Value_Format_for_Kelvin) {
@@ -60,7 +60,7 @@ TEST_F(AppTest, Detect_Wrong_Value_Format_for_Kelvin) {
 
     Act(argc, argv);
 
-    Assert("ERROR!");
+    Assert("Incorrect value for the first argument!");
 }
 
 TEST_F(AppTest, Detect_Wrong_Value_Format_for_Newton) {
@@ -70,7 +70,7 @@ TEST_F(AppTest, Detect_Wrong_Value_Format_for_Newton) {
 
     Act(argc, argv);
 
-    Assert("ERROR!");
+    Assert("Incorrect value for the first argument!");
 }
 
 TEST_F(AppTest, Detect_Wrong_Value_Format_for_Fahrenheit) {
@@ -80,7 +80,7 @@ TEST_F(AppTest, Detect_Wrong_Value_Format_for_Fahrenheit) {
 
     Act(argc, argv);
 
-    Assert("ERROR!");
+    Assert("Incorrect value for the first argument!");
 }
 TEST_F(AppTest, Detect_Wrong_oldUnit_Format) {
     // Arrange

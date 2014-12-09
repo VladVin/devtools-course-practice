@@ -80,8 +80,8 @@ std::string TConvApplication::operator()(int argc, const char** argv) {
         stream << "Result = ";
         stream << t.value;
     }
-    catch(...) {
-        stream << "ERROR!";
+    catch(std::string str) {
+        stream << str;
     }
     message_ = stream.str();
     return message_;

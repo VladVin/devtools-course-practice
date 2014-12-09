@@ -34,8 +34,6 @@ class AppTest : public ::testing::Test {
     }
 
     void Assert(std::string expected) {
-        std::cout<< "!!!" << output_ << "\n";
-        std::cout<< "!!!" << expected << "\n";
         EXPECT_TRUE(RE::PartialMatch(output_, RE(expected)));
     }
 
@@ -58,14 +56,6 @@ TEST_F(AppTest, Is_Checking_Number_Of_Arguments) {
     Assert("ERROR: Should be 3 arguments\\..*");
 }
 
-/*TEST_F(AppTest, Can_Detect_Wrong_Number_Format) {
-    args = {"pi", "2", "2"};
-    std::cout<< "!!!"<< output_<< "\n";
-    EXPECT_THROW(Act(args), std::string);
-    // Assert("Invalid parameters.*");
-}*/ 
-// fix me
-
 TEST_F(AppTest, Can_Detect_Wrong_System1_Format) {
     args = {"1", "3", "2"};
     Act(args);
@@ -73,10 +63,17 @@ TEST_F(AppTest, Can_Detect_Wrong_System1_Format) {
 }
 
 TEST_F(AppTest, Can_Detect_Wrong_System2_Format) {
-    args = {"1", "3", "2"};
+    args = {"1", "2", "3"};
     Act(args);
     Assert("Wrong system\\.*");
 }
+
+TEST_F(AppTest, Can_Detect_Wrong_Number_Format) {
+    args = {"pi", "2", "8"};
+    Act(args);
+    Assert("Wrong number format\\.*");
+}
+
 
 TEST_F(AppTest, Can_No_Translate) {
     args = {"1", "2", "2"};

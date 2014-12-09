@@ -78,7 +78,7 @@ std::string CalculatorApplication::parseArguments(int argc, const char** argv) {
     }
     catch(...) {
         message_ = "Wrong number format!\n";
-        return "NULL";
+        return "Wrong number format!\n";
     }
 }
 

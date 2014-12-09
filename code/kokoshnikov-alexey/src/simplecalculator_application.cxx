@@ -58,8 +58,6 @@ std::string CalculatorApplication::Translate(std::string num1,
     } else {
        return calc.BinToHex(tmp);
     }
-
-    return "Undefined Error!";
 }
 
 std::string CalculatorApplication::parseArguments(int argc, const char** argv) {

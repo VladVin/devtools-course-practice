@@ -89,7 +89,7 @@ TEST_F(AppTest, Detect_Wrong_oldUnit_Format) {
 
     Act(argc, argv);
 
-    Assert("ERROR!");
+    Assert("Wrong unit format!");
 }
 
 TEST_F(AppTest, Detect_Wrong_newUnit_Format) {
@@ -99,7 +99,7 @@ TEST_F(AppTest, Detect_Wrong_newUnit_Format) {
 
     Act(argc, argv);
 
-    Assert("ERROR!");
+    Assert("Wrong unit format!");
 }
 
 TEST_F(AppTest, Detect_Wrong_Number_Format) {
@@ -109,7 +109,7 @@ TEST_F(AppTest, Detect_Wrong_Number_Format) {
 
     Act(argc, argv);
 
-    Assert("ERROR!");
+    Assert("Wrong number format!");
 }
 
 TEST_F(AppTest, Convert_Correct_Value_Celsius_to_Kelvin) {

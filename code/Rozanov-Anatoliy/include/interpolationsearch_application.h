@@ -15,7 +15,7 @@ class SearchApplication {
     std::string message_;
 
     void help(const char* appname);
-    bool parseArguments(int argc, const char** argv, int *mas, int *k);
+    bool parseArguments(int argc, const char** argv);
 };
 
 #endif  // CODE_ROZANOV_ANATOLIY_INCLUDE_INTERPOLATIONSEARCH_APPLICATION_H_

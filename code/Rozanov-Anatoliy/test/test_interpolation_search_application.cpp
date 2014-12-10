@@ -62,7 +62,7 @@ TEST_F(AppTest, Can_Detect_Wrong_Number_Format) {
 
     Act(args);
 
-    Assert("Wrong number format!.*");
+    Assert("ERROR: Wrong number format!.*");
 }
 
 
@@ -82,3 +82,10 @@ TEST_F(AppTest, Can_Search_When_Key_Not_Found) {
     Assert("Element not found");
 }
 
+TEST_F(AppTest, Can_Detect_When_Array_Not_Sort) {
+    args = {"-2", "2", "3", "1", "4"};
+
+    Act(args);
+
+    Assert("ERROR: Array should be sorted");
+}

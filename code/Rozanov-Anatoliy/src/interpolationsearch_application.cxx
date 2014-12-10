@@ -22,14 +22,13 @@ int64_t parseInteger(const char* arg) {
     int64_t value = strtol(arg, &end, 10);
 
     if (end[0]) {
-        throw "Wrong number format";
+        throw std::string("ERROR: Wrong number format!");
     }
 
     return value;
 }
 
-bool SearchApplication::parseArguments(int argc, const char** argv,
-                                       int *mas, int *k) {
+bool SearchApplication::parseArguments(int argc, const char** argv) {
     if (argc == 1) {
         help(argv[0]);
         return false;
@@ -38,29 +37,29 @@ bool SearchApplication::parseArguments(int argc, const char** argv,
         help(argv[0]);
         return false;
     }
-
-    try {
-        int n = argc - 2;
-        (*k) = static_cast<int>(parseInteger(argv[1]));
-        for (int i = 0; i < n; i++)
-            mas[i] = static_cast<int>(parseInteger(argv[i + 2]));
-    }
-    catch(...) {
-        message_ = "Wrong number format!\n";
-        return false;
-    }
     return true;
 }
 
 std::string SearchApplication::operator()(int argc, const char** argv) {
-    int *mas = 0;
-    int n = argc - 2;
-    if (n > 0)
-        mas = new int[n];
-    int k;
-    bool returnCode = parseArguments(argc, argv, mas, &k);
+    bool returnCode = parseArguments(argc, argv);
     if (returnCode != true)
         return message_;
+
+    int k;
+    int n = argc - 2;
+    int *mas = new int[n];;
+    try {
+        k = static_cast<int>(parseInteger(argv[1]));
+        mas[0] = static_cast<int>(parseInteger(argv[2]));
+        for (int i = 1; i < n; i++) {
+            mas[i] = static_cast<int>(parseInteger(argv[i + 2]));
+            if (mas[i] < mas[i - 1])
+                return std::string("ERROR: Array should be sorted");
+        }
+    }
+    catch(std::string str) {
+        return str;
+    }
 
     InterpolationSearch search;
 

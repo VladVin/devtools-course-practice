@@ -6,7 +6,7 @@
 #include <string>
 #pragma pack(push, 1)
 typedef struct {
-int figure;
+int64_t figure;
 double arg1;
 double arg2;
 } Expression;

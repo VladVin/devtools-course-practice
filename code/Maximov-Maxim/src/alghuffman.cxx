@@ -34,18 +34,33 @@ Node::Node(Node const& copy)
       _right(NULL),
       _value(copy._value),
       _c(copy._c) {
-}
+        this->copyTree(&copy);
+    }
 
 Node& Node::operator=(const Node& a) {
-    this->_value = a._value;
-    this->_c = a._c;
+    this->copyTree(&a);
     return *this;
     }
 
+bool Node::operator<(const Node& a) {
+    return this->_value < a._value;
+    }
+
+void Node::copyTree(const Node* tempRoot) {
+    _value = tempRoot->_value;
+    _c = tempRoot->_c;
+    if (tempRoot->_right != NULL) {
+        _right = new Node();
+        _right->copyTree(tempRoot->_right);
+    }
+    if (tempRoot->_left != NULL) {
+        _left = new Node();
+        _left->copyTree(tempRoot->_left);
+    }
+}
 
 void BuildTable(Node *root, map<char, vector<bool> > *table,
     vector<bool> *key);
-Node* CopyTree(Node* tempRoot);
 void BuildTable(Node *root, map<char, vector<bool> > *table,
     vector<bool> *key) {
     if (root->_left != NULL) {
@@ -63,27 +78,21 @@ void BuildTable(Node *root, map<char, vector<bool> > *table,
     key->pop_back();
 }
 
-Node* CopyTree(Node* tempRoot) {
-    Node* result = new Node;
-    result->_value = tempRoot->_value;
-    result->_c = tempRoot->_c;
-    if (tempRoot->_right != NULL) result->_right = CopyTree(tempRoot->_right);
-    if (tempRoot->_left != NULL) result->_left = CopyTree(tempRoot->_left);
-    return(result);
-}
 
 HuffmanAlgorithm::HuffmanAlgorithm():_root(NULL) {}
 HuffmanAlgorithm::~HuffmanAlgorithm() {
     delete _root;
 }
 HuffmanAlgorithm& HuffmanAlgorithm::operator=(const HuffmanAlgorithm& a) {
-    this->_root = CopyTree(a._root);
+    if (_root ==NULL) _root = new Node();
+    _root->copyTree(a._root);
     return *this;
     }
 
 HuffmanAlgorithm::HuffmanAlgorithm(HuffmanAlgorithm const& copy)
   : _root(NULL) {
-    this->_root = CopyTree(copy._root);
+    _root = new Node();
+    _root->copyTree(copy._root);
   }
 
 std::string HuffmanAlgorithm::code(std::string source) {
@@ -94,35 +103,32 @@ std::string HuffmanAlgorithm::code(std::string source) {
 
     // Make list of nodes
 
-    list<Node*> nodelist;
+    list<Node> nodelist;
 
     for (map<char, int>::iterator itr = charfreq.begin(); itr != charfreq.end();
         ++itr) {
-        Node *p = new Node;
-        p->_c = itr->first;
-        p->_value = itr->second;
+        Node p;
+        p._c = itr->first;
+        p._value = itr->second;
         nodelist.push_back(p);
     }
 
     // Build tree
-    delete _root;
-    _root = new Node;
+    if (_root != NULL) delete _root;
     if (nodelist.size() == 1) {
-        Node *leaf;
-        leaf = new Node;
-        leaf->_left = nodelist.front();
-        _root = leaf;
+        _root = new Node();
+        _root->_left = new Node(nodelist.front());
     } else {
         while (nodelist.size() != 1) {
-            nodelist.sort(MyCompare());
-            Node *sonL = nodelist.front();
+            nodelist.sort();
+            Node *sonL = new Node(nodelist.front());
             nodelist.pop_front();
-            Node *sonR = nodelist.front();
+            Node *sonR = new Node(nodelist.front());
             nodelist.pop_front();
-            Node *parent = new Node(sonL, sonR);
+            Node parent(sonL, sonR);
             nodelist.push_back(parent);
         }
-        _root = nodelist.front();  // Save root of our tree
+        _root = new Node(nodelist.front());  // Save root of our tree
     }
 
     // Build table with pairs "character - code"

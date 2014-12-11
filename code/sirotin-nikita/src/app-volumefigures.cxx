@@ -29,7 +29,7 @@ double parseDouble(const char* arg) {
   char* end;
   double value = strtod(arg, &end);
   if (end[0]) {
-    throw "Wrong number format";
+    throw "Wrong number format!";
   }
   return value;
 }
@@ -37,9 +37,6 @@ double parseDouble(const char* arg) {
 int64_t parseInt(const char* arg) {
   char* end;
   int64_t value = strtol(arg, &end, 10);
-  if (end[0]) {
-    throw "Wrong number format";
-  }
   return value;
 }
 
@@ -62,7 +59,7 @@ Expression* expr) {
     return false;
   }
   try {
-    expr->figure = static_cast<int64_t>(parseInt(argv[1]));
+    expr->figure = (parseInt(argv[1]));
     expr->arg1 = static_cast<double>(parseDouble(argv[2]));
     if (expr->figure == 1 || expr->figure == 2)
       expr->arg2 = 0;
@@ -84,7 +81,6 @@ std::string VolumeApplication::operator()(int argc, const char** argv) {
   Volume vol;
   std::ostringstream stream;
   stream << "Result = ";
-  // stream << expr.arg1;
   switch (expr.figure) {
     case 1:
     // stream << expr.arg1; break;

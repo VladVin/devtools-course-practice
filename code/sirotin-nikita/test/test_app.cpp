@@ -72,15 +72,16 @@ TEST_F(AppTest, Check_Number_Of_Arguments_For_Cylinder) {
   Assert("ERROR: Should be 4 arguments\\..*");
 }
 
-TEST_F(AppTest, Detect_Wrong_Number_Format) {
+TEST_F(AppTest, Detect_Wrong_Number_Format_Double) {
   // Arrange
   int argc = 4;
   const char* argv[] = {"appName", "3", "2.", "o"};
 
   Act(argc, argv);
 
-  Assert("Wrong number format!");
+  Assert("Wrong number format!.*");
 }
+
 
 TEST_F(AppTest, Correct_Calculation_Volume_Cube) {
   // Arrange

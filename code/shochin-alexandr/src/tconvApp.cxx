@@ -13,7 +13,7 @@ Unit parseUnit(const char* arg);
 
 TConvApplication::TConvApplication() : message_("") {}
 
-void TConvApplication::help(const char* appName, const char* message)) {
+void TConvApplication::help(const char* appName, const char* message) {
     message_ =
              std::string(message) +
              std::string("This is a temperature convertor application.\n\n")

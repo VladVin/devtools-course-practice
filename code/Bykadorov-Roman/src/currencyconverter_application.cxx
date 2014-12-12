@@ -25,7 +25,7 @@ double parse(const char* arg) {
     char* end;
     double value = strtod(arg, &end);
     if (end[0]) {
-        throw "Wrong value format";
+        throw std::string("ERROR: Wrong format");
     }
     return value;
 }

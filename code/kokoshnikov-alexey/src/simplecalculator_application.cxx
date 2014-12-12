@@ -13,7 +13,7 @@
 CalculatorApplication::CalculatorApplication() : message_("") {}
 
 void CalculatorApplication::help(const char* appname) {
-    message_ += std::string("This is a simple calculator application.\n\n")
+    message_ = std::string("This is a simple calculator application.\n\n")
              + "Please provide arguments in the following format:\n\n"
              + "  $ " + appname + " < in number> <system1> <system2>\n\n"
              + "systems: 2, 8, 16."
@@ -65,7 +65,6 @@ std::string CalculatorApplication::parseArguments(int argc, const char** argv) {
         help(argv[0]);
         return "NULL";
     } else if (argc != 4) {
-        message_ = "ERROR: Should be 3 arguments.\n\n";
         help(argv[0]);
         return "NULL";
     }

@@ -53,7 +53,7 @@ TEST_F(AppTest, Is_Checking_Number_Of_Arguments) {
 
     Act(args);
 
-    Assert("ERROR: Should be 3 arguments\\..*");
+    Assert("This is a simple calculator application\\..*");
 }
 
 TEST_F(AppTest, Can_Detect_Wrong_System1_Format) {

@@ -13,8 +13,10 @@ Unit parseUnit(const char* arg);
 
 TConvApplication::TConvApplication() : message_("") {}
 
-void TConvApplication::help(const char* appName) {
-    message_ += std::string("This is a temperature convertor application.\n\n")
+void TConvApplication::help(const char* appName, const char* message)) {
+    message_ =
+             std::string(message) +
+             std::string("This is a temperature convertor application.\n\n")
              + "Please provide arguments in the following format:\n\n"
              + " $ " + appName + " <argValue> <argFrom> <argIn>\n\n";
 }
@@ -50,8 +52,7 @@ bool TConvApplication::Check(int argc, const char** argv) {
         help(argv[0]);
         return false;
     } else if (argc != 4) {
-        message_ = "ERROR: Should be 3 arguments.\n\n";
-        help(argv[0]);
+        help(argv[0], "ERROR: Should be 3 arguments.\n\n");
         return false;
     }
     return true;

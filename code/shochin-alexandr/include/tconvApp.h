@@ -22,7 +22,7 @@ class TConvApplication {
     std::string operator()(int argc, const char** argv);
  private:
     std::string message_;
-    void help(const char* appName);
+    void help(const char* appName, const char* message = "");
     bool Check(int argc, const char** argv);
 };
 

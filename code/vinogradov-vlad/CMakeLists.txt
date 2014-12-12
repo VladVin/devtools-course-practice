@@ -2,8 +2,9 @@
 ##### Declaring
 #############################################
 
-set(libname  "vinogradov-vlad-scalc-library")
-set(testname "vinogradov-vlad-scalc-test")
+set(libname  "vinogradov-vlad-lheap-library")
+set(testname "vinogradov-vlad-lheap-test")
+set(appname  "vinogradov-vlad-lheap-application")
 
 message("")
 message("############################################")
@@ -25,3 +26,13 @@ add_lib_static(${libname} "include" "src")
 add_local_dependency(${libname})
 add_app(${testname} "test")
 target_link_libraries(${testname})
+
+# Declare application
+add_local_dependency(${libname})
+add_app(${appname} "application")
+
+#############################################
+##### Testing
+#############################################
+
+include("CTestTests.txt")

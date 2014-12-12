@@ -8,6 +8,6 @@
 int main(int argc, const char** argv) {
     CalculatorApplication app;
     std::string output = app(argc, argv);
-    printf("Empty App with parameters: %d, %s", argc, argv[0]);
+    printf("App with parameters: %d, %s\n Out: %s", argc, argv[0], output);
     return 0;
 }

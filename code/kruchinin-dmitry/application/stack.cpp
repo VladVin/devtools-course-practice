@@ -1,9 +1,11 @@
-// Copyright 2013 Dmitry Kruchinin
+// Copyright 2014 Dmitry Kruchinin
 
+#include <string>
 #include "include/stack_application.h"
 
-int main() {
+int main(int argc, char *argv[]) {
     StackApplication app;
-    app.run();
+    std::string message = app(argc, argv);
+    printf("%s\n", message.c_str());
     return 0;
 }

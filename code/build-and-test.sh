@@ -113,7 +113,7 @@ function Clean {
 
 function Main {
     # Clean
-    CheckGoogleStyle
+    # CheckGoogleStyle
     # MakeTest
     BuildCMakeProject
     CTest

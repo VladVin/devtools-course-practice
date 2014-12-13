@@ -1,4 +1,4 @@
-// Copyright 2013 Dmitry Kruchinin
+// Copyright 2014 Dmitry Kruchinin
 
 #include <stdio.h>
 #include <string>
@@ -10,11 +10,13 @@
 
 #define str_size_type std::basic_string<char>::size_type
 
-StackApplication::StackApplication() {}
+StackApplication::StackApplication() : message() {}
 
 void StackApplication::help() {
-    std::string message = std::string("Stack of integer numbers\n") +
-                "Usage:\n" +
+    message += std::string("Stack of integer numbers\n\n") +
+                "Usage: <file> <command> <cmnd_options>\n" +
+                "\t file must contain the numbers in rows,\n" +
+                "\t the top of the stack is the last element\n" +
                 "\t push [number1, number2, ...]\n" +
                 "\t pop [option]\n" +
                 "\t top\n" +
@@ -22,136 +24,165 @@ void StackApplication::help() {
                 "Pop options:\n" +
                 "\t number of elements to pop\n" +
                 "\t -all\n";
-    printf("%s\n", message.c_str());
 }
 
-static void separator(std::string str, std::vector<std::string> *split_str) {
-    int j = 0;
-    for (int i = 0; static_cast<uint>(i) < str.length(); i++) {
-        if (str[static_cast<str_size_type>(i)] == ' ') {
-            if (i == j) {
-                j++;
-                continue;
-            }
-
-            split_str->push_back(
-                str.substr(static_cast<str_size_type>(j),
-                        static_cast<str_size_type>(i - j)));
-            j = i + 1;
-        }
-    }
-    split_str->push_back(str.substr(
-        static_cast<str_size_type>(j),
-        str.size() - static_cast<str_size_type>(j)));
-}
-
-bool StackApplication::get_int(const std::string &str,
+static bool get_int(const std::string &str,
                     const char *exc_type, const char *exc_size,
-                    int &number) {
+                    int &number, std::string *output) {
     try {
         number = static_cast<int>(std::stoi(str));
     }
     catch(const std::invalid_argument &exc) {
-        printf("%s\n", exc_type);
-        help();
+        *output += exc_type + std::string("\n");
         return false;
     }
     catch(const std::out_of_range &exc) {
-        printf("%s\n", exc_size);
-        help();
+        *output += exc_size + std::string("\n");
         return false;
     }
     return true;
 }
 
-bool StackApplication::parseCommand(Stack<int> *stack) {
-    char *lineptr = NULL;
-    size_t dd = 0;
-    int len = static_cast<int>(getline(&lineptr, &dd, stdin)) - 1;
-    std::string line(lineptr, static_cast<str_size_type>(len));
-    free(lineptr);
+static bool read_file(const char *path, Stack<int> *stack,
+                      std::string *output) {
+    FILE* f;
+    if (!(f = fopen(path, "r"))) {
+        *output += std::string("Cannot read from file ") +
+                    std::string(path) + "\n";
+        return false;
+    }
 
-    std::vector<std::string> split_str;
-    separator(line, &split_str);
+    int n = 0;
+    int count = fscanf(f, "%d", &n);
+    while (count != EOF) {
+        if (count == 0) {
+            *output += std::string("Bad read from file ") +
+                        std::string(path) + "\n";
+            return false;
+        }
+        stack->push(n);
+        count = fscanf(f, "%d", &n);
+    }
+
+    fclose(f);
+    return true;
+}
+
+static void write_file(const char *path, Stack<int> *stack) {
+    FILE* f = fopen(path, "w");
+
+    Stack<int> tmp;
+    while (!stack->isEmpty()) {
+        tmp.push(stack->pop());
+    }
+    while (!tmp.isEmpty()) {
+        fprintf(f, "%d\n", tmp.pop());
+    }
+
+    fclose(f);
+}
+
+void StackApplication::parseCommand(int argc, char *argv[]) {
+    if (argc <= 2) {
+        message += "Too few arguments\n";
+        help();
+        return;
+    }
+
+    Stack<int> stack;
+    const char *path = argv[1];
+    if (!read_file(path, &stack, &message)) {
+        help();
+        return;
+    }
+
+    const uint len = static_cast<uint>(argc - 2);
+    std::vector<std::string> args(len);
+    for (uint i = 0; i < len; i++) {
+        args[i] = argv[i + 2];
+    }
 
     const std::string keywords[] = {
-        "push", "pop", "-all", "top", "exit"
+        "push", "pop", "-all", "top"
+    };
+    enum {
+        PUSH, POP, ALL, TOP
     };
 
-    if (keywords[0].compare(split_str[0]) == 0) {
-        if (split_str.size() == 1) {
-            printf("Too few arguments\n");
-            return true;
+    if (keywords[PUSH].compare(args[0]) == 0) {
+        if (args.size() == 1) {
+            message += std::string("Too few arguments\n");
+            help();
+            return;
         }
 
-        for (uint i = 1; i < split_str.size(); i++) {
+        for (uint i = 1; i < args.size(); i++) {
             int n = 0;
             if (get_int(
-                    split_str[i],
+                    args[i],
                     "Invalid argument for push (not a number)",
                     "Too big number to push",
-                    n) == false) {
-                return true;
+                    n, &message) == false) {
+                help();
+                return;
             }
 
-            stack->push(n);
+            stack.push(n);
+            message += std::to_string(stack.top()) + std::string("\n");
+        }
+    } else if (keywords[POP].compare(args[0]) == 0) {
+        if (args.size() == 1) {
+            message += std::string("Too few arguments\n");
+            help();
+            return;
         }
 
-    } else if (keywords[1].compare(split_str[0]) == 0) {
-        if (split_str.size() == 1) {
-            printf("Too few arguments\n");
-            return true;
+        if (keywords[ALL].compare(args[1]) == 0) {
+            while (!stack.isEmpty()) {
+                message += std::to_string(stack.pop()) + "\n";
+            }
+            message += std::string("\n");
+            write_file(path, &stack);
+            return;
         }
 
         int n = 0;
-        if (keywords[2].compare(split_str[1]) == 0) {
-            while (!stack->isEmpty()) {
-                printf("%d\n", stack->pop());
-            }
-            printf("\n");
-            return true;
-        }
         if (get_int(
-                split_str[1],
+                args[1],
                 "Invalid argument for pop (not a number)",
                 "Too big number to pop",
-                n) == false) {
-            return true;
+                n, &message) == false) {
+            help();
+            return;
         }
-
         for (int i = 0; i < n; i++) {
             try {
-                printf("%d\n", stack->pop());
+                message += std::to_string(stack.pop()) + "\n";
             }
             catch(const std::runtime_error &exc) {
-                printf("Stack is empty\n");
-                return true;
+                message += std::string("Stack is empty\n");
+                return;
             }
         }
-        printf("\n");
+        message += std::string("\n");
 
-    } else if (keywords[3].compare(split_str[0]) == 0) {
+    } else if (keywords[TOP].compare(args[0]) == 0) {
         try {
-            printf("%d\n", stack->top());
+            message += std::to_string(stack.top()) + "\n";
         }
         catch(const std::runtime_error &exc) {
-            printf("Stack is empty\n");
-            return true;
+            message += std::string("Stack is empty\n");
+            return;
         }
 
-    } else if (keywords[4].compare(split_str[0]) == 0) {
-        printf("--------------Bye!--------------\n");
-        return false;
-
     } else {
-        printf("Unknown command\n");
+        message += std::string("Unknown command\n");
     }
 
-    return true;
+    write_file(path, &stack);
 }
 
-void StackApplication::run() {
-    Stack<int> stack;
-    help();
-    while (parseCommand(&stack)) {}
+std::string StackApplication::operator()(int argc, char *argv[]) {
+    parseCommand(argc, argv);
+    return message;
 }

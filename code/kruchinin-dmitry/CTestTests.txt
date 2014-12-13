@@ -5,6 +5,104 @@
 enable_testing()
 
 add_test(
-    NAME can_Run
+    NAME Run
     COMMAND ${appname}
 )
+
+add_test(
+    NAME Print_Help_Without_Arguments
+    COMMAND ${appname}
+)
+set_tests_properties (Print_Help_Without_Arguments
+  PROPERTIES PASS_REGULAR_EXPRESSION "Stack of integer numbers")
+
+add_test(
+    NAME Push
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt push 1 2
+)
+set_tests_properties (Push
+  PROPERTIES PASS_REGULAR_EXPRESSION "1*2")
+
+add_test(
+    NAME Top
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt top
+)
+set_tests_properties (Top
+  PROPERTIES PASS_REGULAR_EXPRESSION "2")
+
+add_test(
+    NAME Pop
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt pop 2
+)
+set_tests_properties (Pop
+  PROPERTIES PASS_REGULAR_EXPRESSION "2")
+
+add_test(
+    NAME Pop_All
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt pop -all
+)
+set_tests_properties (Pop_All
+  PROPERTIES PASS_REGULAR_EXPRESSION "45")
+
+add_test(
+    NAME Print_warning_when_stack_is_empty-pop
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt pop 2
+)
+set_tests_properties (Print_warning_when_stack_is_empty-pop
+  PROPERTIES PASS_REGULAR_EXPRESSION "Stack is empty")
+
+add_test(
+    NAME Print_warning_when_stack_is_empty-top
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt top
+)
+set_tests_properties (Print_warning_when_stack_is_empty-top
+  PROPERTIES PASS_REGULAR_EXPRESSION "Stack is empty")
+
+add_test(
+    NAME Print_warning_on_bad_push_args_1
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt push asdf
+)
+set_tests_properties (Print_warning_on_bad_push_args_1
+  PROPERTIES PASS_REGULAR_EXPRESSION "Invalid argument for push")
+
+add_test(
+    NAME Print_warning_on_bad_push_args_2
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt push 1234213412341234
+)
+set_tests_properties (Print_warning_on_bad_push_args_2
+  PROPERTIES PASS_REGULAR_EXPRESSION "Too big number to push")
+
+add_test(
+    NAME Print_warning_on_bad_push_args_3
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt push
+)
+set_tests_properties (Print_warning_on_bad_push_args_3
+  PROPERTIES PASS_REGULAR_EXPRESSION "Too few arguments")
+
+add_test(
+    NAME Print_warning_on_bad_pop_args_1
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt pop asdf
+)
+set_tests_properties (Print_warning_on_bad_pop_args_1
+  PROPERTIES PASS_REGULAR_EXPRESSION "Invalid argument for pop")
+
+add_test(
+    NAME Print_warning_on_bad_pop_args_2
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt pop 123421341234
+)
+set_tests_properties (Print_warning_on_bad_pop_args_2
+  PROPERTIES PASS_REGULAR_EXPRESSION "Too big number to pop")
+
+add_test(
+    NAME Print_warning_on_bad_pop_args_3
+    COMMAND ${appname} ${CMAKE_CURRENT_SOURCE_DIR}/test/test_file.txt pop
+)
+set_tests_properties (Print_warning_on_bad_pop_args_3
+  PROPERTIES PASS_REGULAR_EXPRESSION "Too few arguments")
+
+add_test(
+    NAME Print_warning_when_path_is_bad
+    COMMAND ${appname} /asdf/asdfasd/2134 push
+)
+set_tests_properties (Print_warning_when_path_is_bad
+  PROPERTIES PASS_REGULAR_EXPRESSION "Cannot read from file")

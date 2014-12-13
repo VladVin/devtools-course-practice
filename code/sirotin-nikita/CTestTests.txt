@@ -45,7 +45,7 @@ add_test(
   NAME can_Calculation_Volume_Sphere
   COMMAND ${appname} sphere 2.1215688358
 )
-set_tests_properties (can_Calcula  tion_Volume_Sphere
+set_tests_properties (can_Calculation_Volume_Sphere
 PROPERTIES PASS_REGULAR_EXPRESSION "Result = 40")
 
 add_test(

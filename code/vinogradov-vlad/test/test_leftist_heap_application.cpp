@@ -48,7 +48,7 @@ TEST_F(AppTest, Do_Print_Help_Without_Arguments) {
 
 TEST_F(AppTest, Can_Detect_Wrong_Arguments) {
     // Arrange
-    Arrange({"123 87hi"});
+    Arrange({"123", "87hi"});
 
     Act();
 

@@ -1,0 +1,31 @@
+#############################################
+##### Testing
+#############################################
+
+enable_testing()
+
+add_test(
+    NAME can_Run
+    COMMAND ${appname}
+)
+
+add_test(
+    NAME can_Print_Help_Without_Arguments
+    COMMAND ${appname}
+)
+set_tests_properties(can_Print_Help_Without_Arguments
+    PROPERTIES PASS_REGULAR_EXPRESSION "This is a leftistheap application sample")
+
+add_test(
+    NAME can_Detect_Wrong_Arguments
+    COMMAND ${appname} 123 87hi
+)
+set_tests_properties(
+    PROPERTIES PASS_REGULAR_EXPRESSION "Parameters aren't valid values.")
+
+add_test(
+    NAME can_Find_Min
+    COMMAND ${appname} -1 99 -805 1001
+)
+set_tests_properties(
+    PROPERTIES PASS_REGULAR_EXPRESSION "Min value = -805")

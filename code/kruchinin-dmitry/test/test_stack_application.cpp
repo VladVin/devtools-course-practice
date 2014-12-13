@@ -31,11 +31,15 @@ class StackAppTest : public ::testing::Test {
     void Act(vector<string> args_) {
         vector<char*> starts(args_.size() + 1);
         starts[0] = new char[8];
-        strcpy(starts[0], "appname");
+        snprintf(starts[0], sizeof(starts[0][0]) * 8, "appname");
+        printf("%s\n", starts[0]);
 
         for (size_t i = 0; i < args_.size(); i++) {
             starts[i + 1] = new char[args_[i].length()];
-            strcpy(starts[i + 1], args_[i].c_str());
+            snprintf(starts[i + 1],
+                args_[i].length() + 1,
+                "%s", args_[i].c_str());
+            printf("%s\n", starts[i + 1]);
         }
         char **argv = &starts.front();
         int argc = static_cast<int>(args_.size()) + 1;
@@ -57,7 +61,8 @@ class StackAppTest : public ::testing::Test {
 };
 
 TEST_F(StackAppTest, Can_Push) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "push", "7", "12" };
+    args = { "../code/kruchinin-dmitry/test/test_file.txt",
+        "push", "7", "12" };
 
     Act(args);
 
@@ -149,7 +154,8 @@ TEST_F(StackAppTest, Print_Warning_On_Trash_In_Push) {
 }
 
 TEST_F(StackAppTest, Print_Warning_On_Big_Number_In_Push) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "push", "123456789012345" };
+    args = { "../code/kruchinin-dmitry/test/test_file.txt",
+            "push", "123456789012345" };
 
     Act(args);
 
@@ -165,7 +171,8 @@ TEST_F(StackAppTest, Print_Warning_On_Trash_In_Pop) {
 }
 
 TEST_F(StackAppTest, Print_Warning_On_Big_Number_To_Pop) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "pop", "123456789012345" };
+    args = { "../code/kruchinin-dmitry/test/test_file.txt",
+            "pop", "123456789012345" };
 
     Act(args);
 

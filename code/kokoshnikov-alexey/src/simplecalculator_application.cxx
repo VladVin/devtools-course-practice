@@ -78,6 +78,7 @@ std::string CalculatorApplication::parseArgumentsAndTranslate(int argc,
     }
     catch(...) {
         message_ = "Wrong number format!\n";
+        
         return "Wrong number format!\n";
     }
 }

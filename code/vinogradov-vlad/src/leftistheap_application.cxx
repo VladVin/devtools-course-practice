@@ -22,7 +22,7 @@ int64_t parseInteger(const char* arg) {
     int64_t value = strtol(arg, &endptr, 10);
 
     if (endptr[0]) {
-        throw "Parameters aren't valid values";
+        throw std::string("Parameters aren't valid values");
     }
 
     return value;

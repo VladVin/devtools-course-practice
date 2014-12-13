@@ -87,8 +87,5 @@ std::string CalculatorApplication::operator()(int argc, const char** argv) {
     if (returnCode == "NULL")
         return message_;
 
-    std::ostringstream stream;
-    stream << "Result = ";
-
     return returnCode;
 }

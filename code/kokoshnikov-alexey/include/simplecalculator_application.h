@@ -12,13 +12,13 @@
 #include <string>
 #include <cstdlib>
 
-#pragma pack(push, 1)
+/*#pragma pack(push, 1)
 typedef struct {
     int arg1;
     int arg2;
     char operation;
 } Expression;
-#pragma pack(pop)
+#pragma pack(pop)*/
 
 class CalculatorApplication {
  public:

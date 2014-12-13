@@ -4,9 +4,11 @@
 #define  CODE_SIROTIN_NIKITA_INCLUDE_APP_VOLUME_H_
 
 #include <string>
+#include "include/volumefigures.h"
+
 #pragma pack(push, 1)
 typedef struct {
-int64_t figure;
+volArg figure;
 double arg1;
 double arg2;
 } Expression;

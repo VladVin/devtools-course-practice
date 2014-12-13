@@ -3,6 +3,7 @@
 ##### Testing
 #############################################
 
+
 enable_testing()
 
 add_test(
@@ -15,12 +16,12 @@ add_test(
 )
 
 set_tests_properties (can_Print_Help_Without_Arguments
-PROPERTIES PASS_REGULAR_EXPRESSION "This is a app which calculation volume figures.")
+PROPERTIES PASS_REGULAR_EXPRESSION "This is an app which calculation volume figures.")
 
 
 add_test(
   NAME can_Check_Number_Of_Arguments
-  COMMAND ${appname} 1
+  COMMAND ${appname} cube
 )
 
 set_tests_properties (can_Check_Number_Of_Arguments
@@ -28,35 +29,35 @@ PROPERTIES PASS_REGULAR_EXPRESSION "ERROR: Should be 3 arguments.")
 
 add_test(
   NAME can_Detect_Wrong_Number_Format
-  COMMAND ${appname} 1 pi
+  COMMAND ${appname} cube pi
 )
 set_tests_properties (can_Detect_Wrong_Number_Format
 PROPERTIES PASS_REGULAR_EXPRESSION "Wrong number format!")
 
 add_test(
   NAME can_Calculation_Volume_Cube
-  COMMAND ${appname} 1 2.0
+  COMMAND ${appname} cube 2.0
 )
 set_tests_properties (can_Calculation_Volume_Cube
 PROPERTIES PASS_REGULAR_EXPRESSION "Result = 8")
 
 add_test(
   NAME can_Calculation_Volume_Sphere
-  COMMAND ${appname} 2 2.1215688358
+  COMMAND ${appname} sphere 2.1215688358
 )
-set_tests_properties (can_Calculation_Volume_Sphere
+set_tests_properties (can_Calcula  tion_Volume_Sphere
 PROPERTIES PASS_REGULAR_EXPRESSION "Result = 40")
 
 add_test(
   NAME can_Calculation_Volume_Pyramid
-  COMMAND ${appname} 3 5.0 6.0
+  COMMAND ${appname} pyramid 5.0 6.0
 )
 set_tests_properties (can_Calculation_Volume_Pyramid
 PROPERTIES PASS_REGULAR_EXPRESSION "Result = 10")
 
 add_test(
   NAME can_Calculation_Volume_Cylinder
-  COMMAND ${appname} 4 0.3183098861 6.0
+  COMMAND ${appname} cylinder 0.3183098861 6.0
 )
 set_tests_properties (can_Calculation_Volume_Cylinder
 PROPERTIES PASS_REGULAR_EXPRESSION "Result = 36")

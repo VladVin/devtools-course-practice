@@ -13,11 +13,11 @@
 VolumeApplication::VolumeApplication() : message_("") {}
 
 void VolumeApplication::help(const char* appname) {
-message_ += std::string("This is a app which calculation volume figures.\n\n")
+message_ += std::string("This is an app which calculation volume figures.\n\n")
   + "Please provide arguments in the following format:\n\n"
   + " $ " + appname + " <number figures> <argument1> (<argument2>)\n\n"
   + "Where number figures: 1 - cube, 2 - sphere, 3 - pyramid, 4 - cylinder"
-  + "if user input 1 or 2, then programm takes one argument"
+  + "if user input 1 or 2, then program takes one argument"
   + "else 3 or 4 takes two argument.\n";
 }
 
@@ -34,10 +34,20 @@ double parseDouble(const char* arg) {
   return value;
 }
 
-int64_t parseInt(const char* arg) {
-  char* end;
-  int64_t value = strtol(arg, &end, 10);
-  return value;
+volArg parseArg(const  char* arg) {
+  volArg avol;
+  if (strcmp(arg, "cube") == 0) {
+    avol = cube;
+  } else if (strcmp(arg, "sphere") == 0) {
+    avol = sphere;
+  } else if (strcmp(arg, "pyramid") == 0) {
+    avol = pyramid;
+  } else if (strcmp(arg, "cylinder") == 0) {
+    avol = cylinder;
+  } else {
+    throw std::string("Wrong arg volume format!");
+  }
+  return avol;
 }
 
 bool VolumeApplication::parseArguments(int argc, const char** argv,
@@ -46,22 +56,24 @@ Expression* expr) {
     help(argv[0]);
     return false;
   }
-  if ((static_cast<int64_t>(parseInt(argv[1])) == 1 && argc != 3) ||
-    (static_cast<int64_t>(parseInt(argv[1])) == 2 && argc != 3)) {
+  volArg avol;
+  avol = static_cast<volArg>(parseArg(argv[1]));
+  if ((avol == cube && argc != 3) ||
+    (avol == sphere && argc != 3)) {
     message_ = "ERROR: Should be 3 arguments.\n\n";
     help(argv[0]);
     return false;
   }
-  if ((static_cast<int64_t>(parseInt(argv[1])) == 3 && argc != 4) ||
-    (static_cast<int64_t>(parseInt(argv[1])) == 4 && argc != 4)) {
+  if ((avol == pyramid && argc != 4) ||
+    (avol == cylinder && argc != 4)) {
     message_ = "ERROR: Should be 4 arguments.\n\n";
     help(argv[0]);
     return false;
   }
   try {
-    expr->figure = (parseInt(argv[1]));
+    expr->figure = static_cast<volArg>(parseArg(argv[1]));
     expr->arg1 = static_cast<double>(parseDouble(argv[2]));
-    if (expr->figure == 1 || expr->figure == 2)
+    if (expr->figure == cube || expr->figure == sphere)
       expr->arg2 = 0;
     else
       expr->arg2 = static_cast<double>(parseDouble(argv[3]));
@@ -82,14 +94,13 @@ std::string VolumeApplication::operator()(int argc, const char** argv) {
   std::ostringstream stream;
   stream << "Result = ";
   switch (expr.figure) {
-    case 1:
-    // stream << expr.arg1; break;
+    case cube:
     stream << vol.cube(expr.arg1); break;
-    case 2:
+    case sphere:
     stream << vol.sphere(expr.arg1); break;
-    case 3:
+    case pyramid:
     stream << vol.pyramid(expr.arg1, expr.arg2); break;
-    case 4:
+    case cylinder:
     stream << vol.cylinder(expr.arg1, expr.arg2); break;
   }
   message_ = stream.str();

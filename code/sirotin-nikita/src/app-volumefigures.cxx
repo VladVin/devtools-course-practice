@@ -23,7 +23,7 @@ message_ += std::string("This is an app which calculation volume figures.\n\n")
 
 double parseDouble(const char* arg);
 
-int64_t parseInt(const char* arg);
+volArg parseArg(const  char* arg);
 
 double parseDouble(const char* arg) {
   char* end;

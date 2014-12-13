@@ -20,8 +20,10 @@ class CalculatorApplication {
     std::string operator()(int argc, const char** argv);
  private:
     void help(const char* appname);
-    std::string parseArguments(int argc, const char** argv);
-    std::string Translate(std::string num1, std::string sys1, std::string sys2);
+    std::string parseArgumentsAndTranslate(int argc, const char** argv);
+    std::string Translate(std::string num_in,
+                          std::string sys_in,
+                          std::string sys_out);
     std::string message_;
 };
 

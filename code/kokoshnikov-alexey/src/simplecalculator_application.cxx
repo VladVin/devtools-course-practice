@@ -20,47 +20,48 @@ void CalculatorApplication::help(const char* appname) {
              + "\n";
 }
 
-std::string CalculatorApplication::Translate(std::string num1,
-                                             std::string sys1,
-                                             std::string sys2) {
-    if ((sys1 != "2") && (sys1 != "8") && (sys1 != "16")) {
+std::string CalculatorApplication::Translate(std::string num_in,
+                                             std::string sys_in,
+                                             std::string sys_out) {
+    if ((sys_in != "2") && (sys_in != "8") && (sys_in != "16")) {
        return "Wrong system!";
     }
-    if ((sys2 != "2") && (sys2 != "8") && (sys2 != "16")) {
+    if ((sys_out != "2") && (sys_out != "8") && (sys_out != "16")) {
        return "Wrong system!";
     }
-    if (sys1 == sys2) {
-       return num1;
+    if (sys_in == sys_out) {
+       return num_in;
     }
     SimpleCalculator calc;
-    if (sys1 == "2") {
-       if (sys2 == "8") {
-           return calc.BinToOct(num1);
+    if (sys_in == "2") {
+       if (sys_out == "8") {
+           return calc.BinToOct(num_in);
        } else {
-           return calc.BinToHex(num1);
+           return calc.BinToHex(num_in);
        }
     }
-    if (sys2 == "2") {
-       if (sys1 == "8") {
-           return calc.OctToBin(num1);
+    if (sys_out == "2") {
+       if (sys_in == "8") {
+           return calc.OctToBin(num_in);
        } else {
-           return calc.HexToBin(num1);
+           return calc.HexToBin(num_in);
        }
     }
     std::string tmp;
-    if (sys1 == "8") {
-       tmp = calc.OctToBin(num1);
+    if (sys_in == "8") {
+       tmp = calc.OctToBin(num_in);
     } else {
-       tmp = calc.HexToBin(num1);
+       tmp = calc.HexToBin(num_in);
     }
-    if (sys2 == "8") {
+    if (sys_out == "8") {
        return calc.BinToOct(tmp);
     } else {
        return calc.BinToHex(tmp);
     }
 }
 
-std::string CalculatorApplication::parseArguments(int argc, const char** argv) {
+std::string CalculatorApplication::parseArgumentsAndTranslate(int argc,
+                                                    const char** argv) {
     if (argc == 1) {
         help(argv[0]);
         return "NULL";
@@ -70,10 +71,10 @@ std::string CalculatorApplication::parseArguments(int argc, const char** argv) {
     }
 
     try {
-        std::string num1 = argv[1];
-        std::string sys1 = argv[2];
-        std::string sys2 = argv[3];
-        return Translate(num1, sys1, sys2);
+        std::string num_in = argv[1];
+        std::string sys_in = argv[2];
+        std::string sys_out = argv[3];
+        return Translate(num_in, sys_in, sys_out);
     }
     catch(...) {
         message_ = "Wrong number format!\n";
@@ -83,7 +84,7 @@ std::string CalculatorApplication::parseArguments(int argc, const char** argv) {
 
 
 std::string CalculatorApplication::operator()(int argc, const char** argv) {
-    std::string returnCode = parseArguments(argc, argv);
+    std::string returnCode = parseArgumentsAndTranslate(argc, argv);
     if (returnCode == "NULL")
         return message_;
 

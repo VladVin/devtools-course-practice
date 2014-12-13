@@ -17,6 +17,10 @@ class AppTest: public ::testing::Test {
   info = application(argc, argv);
   }
 
+  void WrongAct(int argc, const char* argv[]) {
+  application(argc, argv);
+  }
+
   void Assert(std::string expect) {
   EXPECT_TRUE(RE::PartialMatch(info, RE(expect)));
   }
@@ -123,12 +127,9 @@ TEST_F(AppTest, Correct_Calculation_Volume_Cylinder) {
   Assert("Result = 36");
 }
 
-TEST_F(AppTest, Check_Number_Format) {
+TEST_F(AppTest, Check_Volume_Format) {
   // Arrange
   int argc = 4;
-  const char* argv[] = {"appName", "pyramid", "0.3183098861", "6lol"};
-
-  Act(argc, argv);
-
-  Assert("Wrong number format!");
+  const char* argv[] = {"appName", "pramid", "0.3183098861", "6"};
+  EXPECT_THROW(WrongAct(argc, argv), std::string);
 }

@@ -28,8 +28,9 @@ volArg parseArg(const  char* arg);
 double parseDouble(const char* arg) {
   char* end;
   double value = strtod(arg, &end);
+  // printf("Oo");
   if (end[0]) {
-    throw "Wrong number format!";
+    throw std::string("Wrong number format!");
   }
   return value;
 }

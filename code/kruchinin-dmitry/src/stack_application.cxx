@@ -8,8 +8,6 @@
 #include "include/stack.h"
 #include "include/stack_application.h"
 
-#define str_size_type std::basic_string<char>::size_type
-
 StackApplication::StackApplication() : message() {}
 
 void StackApplication::help() {
@@ -32,11 +30,11 @@ static bool get_int(const std::string &str,
     try {
         number = static_cast<int>(std::stoi(str));
     }
-    catch(const std::invalid_argument &exc) {
+    catch(const std::invalid_argument) {
         *output += exc_type + std::string("\n");
         return false;
     }
-    catch(const std::out_of_range &exc) {
+    catch(const std::out_of_range) {
         *output += exc_size + std::string("\n");
         return false;
     }
@@ -89,6 +87,7 @@ void StackApplication::parseCommand(int argc, char *argv[]) {
         return;
     }
 
+    #pragma pack(push, 1)
     Stack<int> stack;
     const char *path = argv[1];
     if (!read_file(path, &stack, &message)) {
@@ -159,7 +158,7 @@ void StackApplication::parseCommand(int argc, char *argv[]) {
             try {
                 message += std::to_string(stack.pop()) + "\n";
             }
-            catch(const std::runtime_error &exc) {
+            catch(const std::runtime_error) {
                 message += std::string("Stack is empty\n");
                 return;
             }
@@ -170,7 +169,7 @@ void StackApplication::parseCommand(int argc, char *argv[]) {
         try {
             message += std::to_string(stack.top()) + "\n";
         }
-        catch(const std::runtime_error &exc) {
+        catch(const std::runtime_error) {
             message += std::string("Stack is empty\n");
             return;
         }

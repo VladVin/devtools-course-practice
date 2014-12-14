@@ -8,10 +8,11 @@
 
 #include "include/node.h"
 
+#pragma pack(push, 1)
 template <typename Type>
 class Stack {
  public:
-    Stack() : tail(NULL), size(0) {}
+    Stack() : size(0), tail(NULL) {}
 
     ~Stack() {
         Node<Type>* tmp = tail;
@@ -80,8 +81,9 @@ class Stack {
     }
 
  private:
-    Node<Type>* tail;
     int size;
+    Node<Type>* tail;
 };
+#pragma pack(pop)
 
 #endif  // CODE_KRUCHININ_DMITRY_INCLUDE_STACK_H_

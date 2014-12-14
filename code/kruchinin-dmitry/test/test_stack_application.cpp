@@ -32,14 +32,12 @@ class StackAppTest : public ::testing::Test {
         vector<char*> starts(args_.size() + 1);
         starts[0] = new char[8];
         snprintf(starts[0], sizeof(starts[0][0]) * 8, "appname");
-        printf("%s\n", starts[0]);
 
         for (size_t i = 0; i < args_.size(); i++) {
             starts[i + 1] = new char[args_[i].length()];
             snprintf(starts[i + 1],
                 args_[i].length() + 1,
                 "%s", args_[i].c_str());
-            printf("%s\n", starts[i + 1]);
         }
         char **argv = &starts.front();
         int argc = static_cast<int>(args_.size()) + 1;
@@ -177,6 +175,18 @@ TEST_F(StackAppTest, Print_Warning_On_Big_Number_To_Pop) {
     Act(args);
 
     Assert("Too big number to pop*");
+}
+
+TEST_F(StackAppTest, Print_Warning_When_Data_In_File_Is_Invalid) {
+    args = { "../code/kruchinin-dmitry/test/test_file.txt", "push", "1"};
+
+    FILE* f = fopen("../code/kruchinin-dmitry/test/test_file.txt", "w");
+    fprintf(f, "a");
+    fclose(f);
+
+    Act(args);
+
+    Assert("Bad read from file *");
 }
 
 TEST_F(StackAppTest, Print_Warning_On_Bad_Path) {

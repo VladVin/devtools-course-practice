@@ -17,8 +17,7 @@ void StackApplication::help() {
                 "\t the top of the stack is the last element\n" +
                 "\t push [number1, number2, ...]\n" +
                 "\t pop [option]\n" +
-                "\t top\n" +
-                "\t exit\n\n" +
+                "\t top\n\n" +
                 "Pop options:\n" +
                 "\t number of elements to pop\n" +
                 "\t -all\n";
@@ -80,14 +79,13 @@ static void write_file(const char *path, Stack<int> *stack) {
     fclose(f);
 }
 
-void StackApplication::parseCommand(int argc, char *argv[]) {
+void StackApplication::parseCommand_and_Run(int argc, char *argv[]) {
     if (argc <= 2) {
         message += "Too few arguments\n";
         help();
         return;
     }
 
-    #pragma pack(push, 1)
     Stack<int> stack;
     const char *path = argv[1];
     if (!read_file(path, &stack, &message)) {
@@ -182,6 +180,6 @@ void StackApplication::parseCommand(int argc, char *argv[]) {
 }
 
 std::string StackApplication::operator()(int argc, char *argv[]) {
-    parseCommand(argc, argv);
+    parseCommand_and_Run(argc, argv);
     return message;
 }

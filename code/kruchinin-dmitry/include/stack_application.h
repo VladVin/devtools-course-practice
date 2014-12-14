@@ -11,7 +11,7 @@ class StackApplication {
     StackApplication();
     std::string operator()(int argc, char *argv[]);
  private:
-    void parseCommand(int argc, char *argv[]);
+    void parseCommand_and_Run(int argc, char *argv[]);
     void help();
 
     std::string message;

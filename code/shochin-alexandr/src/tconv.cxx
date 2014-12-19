@@ -11,7 +11,7 @@ TemperatureConvertor::~TemperatureConvertor() {}
 
 double TemperatureConvertor::Convert(Temperature temp, Unit unit) {
     if (Check(temp) == -1) {
-            throw std::string("Error!");
+            throw std::string("Incorrect value for the first argument!");
     } else {
         if (temp.unit == Celsius) {
             return ConvertFromCelsius(temp, unit);

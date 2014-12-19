@@ -20,7 +20,7 @@ class Node {
     ~Node();
     explicit Node(Node const& copy);
     Node& operator=(const Node& a);
-    bool operator<(const Node& a);
+    bool operator<(const Node& a) const;
     int _value;
     char _c;
 };

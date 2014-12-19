@@ -42,7 +42,7 @@ Node& Node::operator=(const Node& a) {
     return *this;
     }
 
-bool Node::operator<(const Node& a) {
+bool Node::operator<(const Node& a) const {
     return this->_value < a._value;
     }
 

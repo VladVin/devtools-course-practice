@@ -1,13 +1,14 @@
 // Copyright 2014 Anatoliy Rozanov
 
+#include <stdexcept>
 #include <string>
 #include "include/interpolationsearch.h"
 
 int InterpolationSearch::run(const int *a, const int &n, const int &k) {
     if (n == 0)
-        throw std::string("n == 0");
+        throw std::string("ERROR: n == 0");
     if (a == 0)
-        throw std::string("a == 0");
+        throw std::string("ERROR: a == 0");
     int left = 0;
     int right = n - 1;
     int mid;

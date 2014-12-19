@@ -8,7 +8,7 @@ class InterpolationSearch {
     InterpolationSearch() {}
     ~InterpolationSearch() {}
 
-    int run(const int*, const int&, const int&);
+    int run(const int* a, const int& n, const int& k);
 };
 
 #endif  // CODE_ROZANOV_ANATOLIY_INCLUDE_INTERPOLATIONSEARCH_H_

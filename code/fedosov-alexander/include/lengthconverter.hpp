@@ -5,7 +5,6 @@
 class LengthConverter {
  public:
     enum Type {
-        TYPE_WRONG = -1,
         TYPE_METER = 1,
         TYPE_INCH = 2,
         TYPE_FOOT = 3,
@@ -17,6 +16,7 @@ class LengthConverter {
     double convertToMeters(Type type, double length);
     double convertMetersTo(Type type, double length);
     double convert(Type from, double length, Type to);
+    Type checkType(const char* type);
 
  private:
     static double checkLength(double length);

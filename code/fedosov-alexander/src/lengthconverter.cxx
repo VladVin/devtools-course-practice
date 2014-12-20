@@ -3,6 +3,7 @@
 
 #include <float.h>
 #include <stdio.h>
+#include <string.h>
 #include <math.h>
 #include <cstdlib>
 #include <string>
@@ -13,7 +14,7 @@ LengthConverter::LengthConverter() {}
 LengthConverter::~LengthConverter() {}
 
 double LengthConverter::checkLength(double length) {
-if (length < 0.0000001) {
+if (length < 0.0) {
         throw std::string("Length can't be below zero!");
     }
 return length;
@@ -44,5 +45,27 @@ double LengthConverter::convertMetersTo(Type type, double length) {
     throw std::string("Unknown type");}
 }
 double LengthConverter::convert(Type from, double length, Type to) {
+    if (from == to) {
+        return checkLength(length);
+    } else {
     return (convertMetersTo(to, (convertToMeters(from, length))));
+    }
+}
+LengthConverter::Type LengthConverter::checkType(const char* type) {
+    LengthConverter::Type typeToReturn;
+    if (!strcmp(type, "meters")) {
+            typeToReturn = LengthConverter::TYPE_METER;
+        } else if (!strcmp(type, "inches")) {
+            typeToReturn = LengthConverter::TYPE_INCH;
+        } else if (!strcmp(type, "feet")) {
+            typeToReturn = LengthConverter::TYPE_FOOT;
+
+        } else if (!strcmp(type, "yards")) {
+            typeToReturn = LengthConverter::TYPE_YARD;
+        } else if (!strcmp(type, "miles")) {
+            typeToReturn = LengthConverter::TYPE_MILE;
+        } else {
+            throw std::string("Unknown type");
+        }
+    return typeToReturn;
 }

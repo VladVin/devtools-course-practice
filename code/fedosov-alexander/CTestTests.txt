@@ -1,0 +1,97 @@
+#############################################
+##### Testing
+#############################################
+
+enable_testing()
+
+add_test(
+    NAME can_Run
+    COMMAND ${appname}
+)
+
+add_test(
+    NAME can_Print_Help_Without_Arguments
+    COMMAND ${appname}
+)
+set_tests_properties (can_Print_Help_Without_Arguments
+  PROPERTIES PASS_REGULAR_EXPRESSION "This is a simple length converter app")
+
+add_test(
+    NAME Can_Detect_Wrong_Number_Format
+    COMMAND ${appname} -from meters abc -to yards
+)
+
+set_tests_properties (Can_Detect_Wrong_Number_Format
+  PROPERTIES PASS_REGULAR_EXPRESSION "Wrong input!")
+
+add_test(
+    NAME Can_Convert_Meters_To_Meters
+    COMMAND ${appname} -from meters 10 -to meters
+)
+
+set_tests_properties (Can_Convert_Meters_To_Meters
+  PROPERTIES PASS_REGULAR_EXPRESSION "Conversion result is 10")
+
+add_test(
+    NAME Can_Convert_Inches_To_Inches
+    COMMAND ${appname} -from inches 10 -to inches
+)
+
+set_tests_properties (Can_Convert_Inches_To_Inches
+  PROPERTIES PASS_REGULAR_EXPRESSION "Conversion result is 10")
+
+add_test(
+    NAME Can_Convert_Feet_To_Feet
+    COMMAND ${appname} -from feet 10 -to feet
+)
+
+set_tests_properties (Can_Convert_Feet_To_Feet
+  PROPERTIES PASS_REGULAR_EXPRESSION "Conversion result is 10")
+
+add_test(
+    NAME Can_Convert_Yards_To_Yards
+    COMMAND ${appname} -from yards 10 -to yards
+)
+
+set_tests_properties (Can_Convert_Yards_To_Yards
+  PROPERTIES PASS_REGULAR_EXPRESSION "Conversion result is 10")
+
+add_test(
+    NAME Can_Convert_Miles_To_Yards
+    COMMAND ${appname} -from miles 10 -to yards
+    )
+
+set_tests_properties (Can_Convert_Miles_To_Yards
+  PROPERTIES PASS_REGULAR_EXPRESSION "Conversion result is 17600")
+
+add_test(
+    NAME Can_Read_DBL_Starts_wtih_dot
+    COMMAND ${appname} -from meters .10 -to meters
+    )
+
+set_tests_properties (Can_Read_DBL_Starts_wtih_dot
+  PROPERTIES PASS_REGULAR_EXPRESSION "Conversion result is 0.1")
+
+add_test(
+    NAME Print_Error_On_Invalid_Input
+    COMMAND ${appname} -from meters .10abc -to meters
+    )
+
+set_tests_properties (Print_Error_On_Invalid_Input
+  PROPERTIES PASS_REGULAR_EXPRESSION "Wrong input!")
+
+add_test(
+    NAME Can_Read_Signed_Values
+    COMMAND ${appname} -from meters +0 -to meters
+    )
+
+set_tests_properties (Can_Read_Signed_Values
+  PROPERTIES PASS_REGULAR_EXPRESSION "Conversion result is +0")
+
+add_test(
+    NAME Can_Read_Signed_Values_Started_With_Dot
+    COMMAND ${appname} -from meters +.15 -to meters
+    )
+
+set_tests_properties (Can_Read_Signed_Values_Started_With_Dot
+  PROPERTIES PASS_REGULAR_EXPRESSION "Conversion result is +0.15")

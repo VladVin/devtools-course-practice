@@ -2,8 +2,9 @@
 ##### Declaring
 #############################################
 
-set(libname  "Bykadorov-Roman-ссonverter-library")
-set(testname "Bykadorov-Roman-ссonverter-test")
+set(libname  "Bykadorov-Roman-cconverter-library")
+set(testname "Bykadorov-Roman-cconverter-test")
+set(appname  "Bykadorov-Roman-cconverter-application")
 
 message("")
 message("############################################")
@@ -25,4 +26,14 @@ add_lib_static(${libname} "include" "src")
 add_local_dependency(${libname})
 add_app(${testname} "test")
 target_link_libraries(${testname})
+
+# Declare application
+add_local_dependency(${libname})
+add_app(${appname} "application")
+
+#############################################
+##### Testing
+#############################################
+
+include("CTestTests.txt")
 

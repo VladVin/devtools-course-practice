@@ -5,15 +5,6 @@
 #include <float.h>
 #include "string"
 
-CurrencyConverter::CurrencyConverter() {}
-CurrencyConverter::~CurrencyConverter() {}
-
-const double eurForRub = 53.5948527;
-const double usdForRub = 42.2600685;
-const double gbpForRub = 70.8657;
-const double jpyForRub = 0.38;
-const double nokForRub = 6.42;
-
 double CurrencyConverter::convert(Currency from, Currency to, double value) {
 double fromToRub = 0;
 double rubTo = 0;

@@ -56,11 +56,11 @@ class StackAppTest : public ::testing::Test {
     StackApplication app_;
     string output_;
     vector<string> args;
+    const char* test_file = "../code/kruchinin-dmitry/test/test_file.txt";
 };
 
 TEST_F(StackAppTest, Can_Push) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt",
-        "push", "7", "12" };
+    args = { test_file, "push", "7", "12" };
 
     Act(args);
 
@@ -68,7 +68,7 @@ TEST_F(StackAppTest, Can_Push) {
 }
 
 TEST_F(StackAppTest, Can_Pop) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "pop", "2"};
+    args = { test_file, "pop", "2"};
 
     Act(args);
 
@@ -76,7 +76,7 @@ TEST_F(StackAppTest, Can_Pop) {
 }
 
 TEST_F(StackAppTest, Can_Pop_All) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "pop", "-all"};
+    args = { test_file, "pop", "-all"};
 
     Act(args);
 
@@ -84,7 +84,7 @@ TEST_F(StackAppTest, Can_Pop_All) {
 }
 
 TEST_F(StackAppTest, Can_Top) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "top" };
+    args = { test_file, "top" };
 
     Act(args);
 
@@ -92,7 +92,7 @@ TEST_F(StackAppTest, Can_Top) {
 }
 
 TEST_F(StackAppTest, Without_Arguments) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt" };
+    args = { test_file };
 
     Act(args);
 
@@ -100,7 +100,7 @@ TEST_F(StackAppTest, Without_Arguments) {
 }
 
 TEST_F(StackAppTest, Without_Push_Arguments) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "push"};
+    args = { test_file, "push"};
 
     Act(args);
 
@@ -108,7 +108,7 @@ TEST_F(StackAppTest, Without_Push_Arguments) {
 }
 
 TEST_F(StackAppTest, Without_Pop_Arguments) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "pop" };
+    args = { test_file, "pop" };
 
     Act(args);
 
@@ -116,27 +116,27 @@ TEST_F(StackAppTest, Without_Pop_Arguments) {
 }
 
 TEST_F(StackAppTest, Print_Warning_When_Stack_Is_Empty_Pop) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "pop", "-all" };
+    args = { test_file, "pop", "-all" };
     Act(args);
 
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "pop", "2" };
+    args = { test_file, "pop", "2" };
     Act(args);
 
     Assert("Stack is empty*");
 }
 
 TEST_F(StackAppTest, Print_Warning_When_Stack_Is_Empty_Top) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "pop", "-all" };
+    args = { test_file, "pop", "-all" };
     Act(args);
 
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "top" };
+    args = { test_file, "top" };
     Act(args);
 
     Assert("Stack is empty*");
 }
 
 TEST_F(StackAppTest, With_Trash_Instead_Of_Command) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "blabla"};
+    args = { test_file, "blabla"};
 
     Act(args);
 
@@ -144,7 +144,7 @@ TEST_F(StackAppTest, With_Trash_Instead_Of_Command) {
 }
 
 TEST_F(StackAppTest, Print_Warning_On_Trash_In_Push) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "push", "lala" };
+    args = { test_file, "push", "lala" };
 
     Act(args);
 
@@ -152,8 +152,7 @@ TEST_F(StackAppTest, Print_Warning_On_Trash_In_Push) {
 }
 
 TEST_F(StackAppTest, Print_Warning_On_Big_Number_In_Push) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt",
-            "push", "123456789012345" };
+    args = { test_file, "push", "123456789012345" };
 
     Act(args);
 
@@ -161,7 +160,7 @@ TEST_F(StackAppTest, Print_Warning_On_Big_Number_In_Push) {
 }
 
 TEST_F(StackAppTest, Print_Warning_On_Trash_In_Pop) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "pop", "lala" };
+    args = { test_file, "pop", "lala" };
 
     Act(args);
 
@@ -169,7 +168,7 @@ TEST_F(StackAppTest, Print_Warning_On_Trash_In_Pop) {
 }
 
 TEST_F(StackAppTest, Print_Warning_On_Big_Number_To_Pop) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt",
+    args = { test_file,
             "pop", "123456789012345" };
 
     Act(args);
@@ -178,7 +177,7 @@ TEST_F(StackAppTest, Print_Warning_On_Big_Number_To_Pop) {
 }
 
 TEST_F(StackAppTest, Print_Warning_When_Data_In_File_Is_Invalid) {
-    args = { "../code/kruchinin-dmitry/test/test_file.txt", "push", "1"};
+    args = { test_file, "push", "1"};
 
     FILE* f = fopen("../code/kruchinin-dmitry/test/test_file.txt", "w");
     fprintf(f, "a");

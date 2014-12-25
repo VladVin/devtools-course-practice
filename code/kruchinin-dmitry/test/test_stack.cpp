@@ -39,8 +39,8 @@ TEST_F(StackTest, IsEmpty_int) {
 }
 
 TEST_F(StackTest, Exception_When_Stack_Is_Empty_int) {
-    EXPECT_THROW(stack_int.pop(), std::string);
-    EXPECT_THROW(stack_int.top(), std::string);
+    EXPECT_THROW(stack_int.pop(), std::runtime_error);
+    EXPECT_THROW(stack_int.top(), std::runtime_error);
 }
 
 TEST_F(StackTest, Elems_Realy_Removes_From_Stack_int) {
@@ -49,8 +49,8 @@ TEST_F(StackTest, Elems_Realy_Removes_From_Stack_int) {
     stack_int.pop();
     stack_int.pop();
 
-    EXPECT_THROW(stack_int.pop(), std::string);
-    EXPECT_THROW(stack_int.top(), std::string);
+    EXPECT_THROW(stack_int.pop(), std::runtime_error);
+    EXPECT_THROW(stack_int.top(), std::runtime_error);
 }
 
 TEST_F(StackTest, Node_Params_int) {
@@ -84,8 +84,8 @@ TEST_F(StackTest, IsEmpty_float) {
 }
 
 TEST_F(StackTest, Exception_When_Stack_Is_Empty_float) {
-    EXPECT_THROW(stack_float.pop(), std::string);
-    EXPECT_THROW(stack_float.top(), std::string);
+    EXPECT_THROW(stack_float.pop(), std::runtime_error);
+    EXPECT_THROW(stack_float.top(), std::runtime_error);
 }
 
 TEST_F(StackTest, Elems_Realy_Removes_From_Stack_float) {
@@ -94,8 +94,8 @@ TEST_F(StackTest, Elems_Realy_Removes_From_Stack_float) {
     stack_float.pop();
     stack_float.pop();
 
-    EXPECT_THROW(stack_float.pop(), std::string);
-    EXPECT_THROW(stack_float.top(), std::string);
+    EXPECT_THROW(stack_float.pop(), std::runtime_error);
+    EXPECT_THROW(stack_float.top(), std::runtime_error);
 }
 
 TEST_F(StackTest, Node_Params_float) {

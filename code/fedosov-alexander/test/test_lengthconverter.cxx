@@ -3,6 +3,8 @@
 #include <float.h>
 #include <cstdlib>
 #include <string>
+#include <map>
+#include <utility>
 #include "include/lengthconverter.hpp"
 
 class lengthconverterTest : public ::testing::Test {
@@ -11,6 +13,13 @@ class lengthconverterTest : public ::testing::Test {
     // virtual void SetUp() {}
     // virtual void TearDown() {}
     LengthConverter converter;
+    std::map<LengthConverter::Type, std::string> types = {
+    {LengthConverter::TYPE_METER, "meters"},
+    {LengthConverter::TYPE_INCH, "inches"},
+    {LengthConverter::TYPE_FOOT, "feet"},
+    {LengthConverter::TYPE_YARD, "yards"},
+    {LengthConverter::TYPE_MILE, "miles"}
+};
 };
 
 TEST_F(lengthconverterTest, conversion_test1) {
@@ -108,3 +117,19 @@ TEST_F(lengthconverterTest, conversion_test22) {
         100.0, LengthConverter::TYPE_METER), 100.0, 0.01);
 }
 
+TEST_F(lengthconverterTest, conversion_test23) {
+    EXPECT_NEAR(converter.convert(LengthConverter::TYPE_MILE,
+        100.0, LengthConverter::TYPE_MILE), 100.0, 0.01);
+}
+
+TEST_F(lengthconverterTest, typechecking_correct_test) {
+    for (std::map<LengthConverter::Type, std::string>::iterator
+        iter = types.begin(); iter != types.end(); ++iter) {
+        EXPECT_EQ(converter.checkType(((*iter).second).c_str()),
+            (*iter).first);
+    }
+}
+
+TEST_F(lengthconverterTest, typechecking_wrong_test) {
+     EXPECT_THROW(converter.checkType("wrongname"), std::string);
+}

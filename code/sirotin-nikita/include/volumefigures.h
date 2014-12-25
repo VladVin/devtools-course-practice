@@ -3,6 +3,8 @@
 #ifndef CODE_SIROTIN_NIKITA_INCLUDE_VOLUMEFIGURES_H_
 #define CODE_SIROTIN_NIKITA_INCLUDE_VOLUMEFIGURES_H_
 
+enum volArg {cube, sphere, pyramid, cylinder};
+
 class Volume {
  public:
   static double cube(const double side);

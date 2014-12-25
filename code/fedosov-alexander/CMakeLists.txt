@@ -4,6 +4,7 @@
 
 set(libname  "fedosov-alexander-lengthconverter-library")
 set(testname "fedosov-alexander-lengthconverter-test")
+set(appname  "fedosov-alexander-lengthconverter-application")
 
 message("")
 message("############################################")
@@ -25,3 +26,14 @@ add_lib_static(${libname} "include" "src")
 add_local_dependency(${libname})
 add_app(${testname} "test")
 target_link_libraries(${testname})
+
+# Declare application
+add_local_dependency(${libname})
+add_app(${appname} "application")
+
+#############################################
+##### Testing
+#############################################
+
+include("CTestTests.txt")
+

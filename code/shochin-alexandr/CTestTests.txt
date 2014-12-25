@@ -1,0 +1,42 @@
+#############################################
+##### Testing
+#############################################
+
+enable_testing()
+
+add_test(
+    NAME can_Run
+    COMMAND ${appname}
+)
+
+add_test(
+    NAME Print_Help_Without_Arguments
+    COMMAND ${appname}
+)
+set_tests_properties (Print_Help_Without_Arguments
+  PROPERTIES PASS_REGULAR_EXPRESSION "This is a temperature convertor application."
+)
+
+add_test(
+    NAME Check_Number_Of_Arguments
+    COMMAND ${appname} 20 Celsius
+)
+set_tests_properties (Check_Number_Of_Arguments
+  PROPERTIES PASS_REGULAR_EXPRESSION "ERROR: Should be 3 arguments."
+)
+
+add_test(
+    NAME Convert_Correct_Value_Celsius_to_Newton
+    COMMAND ${appname} 50 Celsius Newton
+)
+set_tests_properties (Convert_Correct_Value_Celsius_to_Newton
+  PROPERTIES PASS_REGULAR_EXPRESSION "Result = 16.5"
+)
+
+add_test(
+    NAME Convert_Correct_Value_Newton_to_Celsius
+    COMMAND ${appname} 50 Newton Celsius
+)
+set_tests_properties (Convert_Correct_Value_Newton_to_Celsius
+  PROPERTIES PASS_REGULAR_EXPRESSION "Result = 151.515"
+)

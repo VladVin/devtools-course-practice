@@ -47,7 +47,6 @@ TEST_F(AppTest, Do_Print_Help_Without_Arguments) {
 }
 
 TEST_F(AppTest, Can_Detect_Wrong_Arguments) {
-    // Arrange
     Arrange({"123", "87hi"});
 
     Act();
@@ -55,10 +54,34 @@ TEST_F(AppTest, Can_Detect_Wrong_Arguments) {
     Assert("Parameters aren't valid values.");
 }
 
-TEST_F(AppTest, Can_Find_Min) {
+TEST_F(AppTest, Can_Find_Min_Negative) {
     Arrange({"-1", "99", "-805", "1001"});
 
     Act();
 
     Assert("Min value = -805");
+}
+
+TEST_F(AppTest, Can_Find_Min_Positive) {
+    Arrange({"8", "5", "11"});
+
+    Act();
+
+    Assert("Min value = 5");
+}
+
+TEST_F(AppTest, Can_Find_Min_Zero) {
+    Arrange({"123", "0", "456"});
+
+    Act();
+
+    Assert("Min value = 0");
+}
+
+TEST_F(AppTest, Can_Find_Min_Duplicated) {
+    Arrange({"-342", "0", "-342", "123"});
+
+    Act();
+
+    Assert("Min value = -342");
 }

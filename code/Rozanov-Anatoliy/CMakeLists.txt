@@ -4,6 +4,7 @@
 
 set(libname  "rozanov-anatoliy-interpsearch-library")
 set(testname "rozanov-anatoliy-interpsearch-test")
+set(appname  "rozanov-anatoliy-interpsearch-application")
 
 message("")
 message("############################################")
@@ -25,3 +26,13 @@ add_lib_static(${libname} "include" "src")
 add_local_dependency(${libname})
 add_app(${testname} "test")
 target_link_libraries(${testname})
+
+# Declare application
+add_app(${appname} "application")
+
+
+#############################################
+##### Testing
+#############################################
+
+include("CTestTests.txt")
